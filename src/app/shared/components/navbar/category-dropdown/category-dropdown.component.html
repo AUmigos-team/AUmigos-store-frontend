@@ -1,0 +1,19 @@
+<div
+  class="category-wrapper"
+  (mouseenter)="hovering = true"
+  (mouseleave)="hovering = false">
+
+  <button class="category-button" [ngStyle]="{ color: hovering ? highlightColor : '#504D4B' }">
+    {{ name }}
+  </button>
+
+  <div class="subcategory-panel" *ngIf="hovering && subcategories.length > 0">
+    <ul>
+      <li
+        *ngFor="let sub of subcategories"
+        [ngStyle]="{ '--hover-color': highlightColor }">
+        {{ sub }}
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<nav class="navbar">
+  <div class="container">
+    <img
+      ngSrc="assets/logo-aumigos.png"
+      alt="Logo AUmigos"
+      width="169"
+      height="39"
+      class="logo"
+    />
+
+    <input class="search" placeholder="O que seu pet precisa?" />
+
+    <div class="icons">
+      <button mat-icon-button><mat-icon>shopping_cart</mat-icon></button>
+      <button mat-icon-button><mat-icon>person</mat-icon></button>
+    </div>
+  </div>
+</nav>
+
+<div class="menu">
+  <div class="container">
+    <app-category-dropdown
+      *ngFor="let category of categories"
+      [name]="category.name"
+      [subcategories]="category.subcategories"
+      [highlightColor]="category.color || '#ccc'">
+    </app-category-dropdown>
+
+  </div>
+</div>

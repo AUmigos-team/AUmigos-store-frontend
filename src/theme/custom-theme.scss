@@ -1,0 +1,15 @@
+//@use '@angular/material' as mat;
+//
+//$marrom: mat.define-palette(mat.$brown-palette);
+//$rosa: mat.define-palette(mat.$pink-palette);
+//
+//$custom-theme: mat.define-light-theme((
+//  color: (
+//    primary: $marrom,
+//    accent: $rosa,
+//  )
+//));
+//
+//// Inclui estilos base + componentes com tema aplicado
+//@include mat.core();
+//@include mat.all-component-themes($custom-theme);

@@ -1,0 +1,47 @@
+.category-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.category-button {
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.subcategory-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  z-index: 10;
+  min-width: 220px;
+  border-radius: 4px;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      padding: 0.7rem 1rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      color: #504D4B;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: var(--hover-color, #eee);
+        color: white;
+        border-radius: 4px;
+      }
+    }
+  }
+}
