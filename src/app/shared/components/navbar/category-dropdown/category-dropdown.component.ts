@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {Subcategory} from '../../../../core/interfaces/subcategory';
 
 @Component({
   selector: 'app-category-dropdown',
@@ -10,7 +11,7 @@ import {CommonModule} from '@angular/common';
 })
 export class CategoryDropdownComponent {
   @Input() name!: string;
-  @Input() subcategories: string[] = [];
+  @Input() subcategories: Subcategory[] = [];
   @Input() highlightColor: string = '#ccc';
 
   hovering = false;

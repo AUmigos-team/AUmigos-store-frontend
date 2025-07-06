@@ -9,10 +9,8 @@
 
   <div class="subcategory-panel" *ngIf="hovering && subcategories.length > 0">
     <ul>
-      <li
-        *ngFor="let sub of subcategories"
-        [ngStyle]="{ '--hover-color': highlightColor }">
-        {{ sub }}
+      <li *ngFor="let sub of subcategories">
+        {{ sub.name }}
       </li>
     </ul>
   </div>
