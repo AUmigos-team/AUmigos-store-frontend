@@ -22,7 +22,7 @@
     <app-category-dropdown
       *ngFor="let category of categories"
       [name]="category.name"
-      [subcategories]="category.subcategories"
+      [subcategories]="category.subcategories || []"
       [highlightColor]="category.color || '#ccc'">
     </app-category-dropdown>
 
