@@ -1,0 +1,13 @@
+<div class="carousel-wrapper">
+  <div class="carousel">
+    <img *ngIf="showSideBanners" class="banner left" [src]="banners[prevIndex].image" alt="Previous Banner" />
+
+    <div class="center-wrapper">
+      <button class="nav-button left" (click)="prevSlide()">❮</button>
+      <img class="banner center" [src]="banners[activeIndex].image" alt="Current Banner" />
+      <button class="nav-button right" (click)="nextSlide()">❯</button>
+    </div>
+
+    <img *ngIf="showSideBanners" class="banner right" [src]="banners[nextIndex].image" alt="Next Banner" />
+  </div>
+</div>
