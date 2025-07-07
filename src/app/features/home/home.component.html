@@ -1,8 +1,9 @@
 <app-advantages></app-advantages>
-<app-banner-carousel></app-banner-carousel>
+<div class="carousel">
+  <app-banner-carousel ></app-banner-carousel>
+</div>
 <div class="recommended-wrapper">
   <h2>Produtos Recomendados</h2>
-
   <div class="recommended-list">
     <app-product-card
       *ngFor="let item of recommendedProducts"

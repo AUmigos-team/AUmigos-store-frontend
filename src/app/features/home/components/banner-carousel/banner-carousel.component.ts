@@ -12,8 +12,8 @@ export class BannerCarouselComponent {
 
   banners = [
     {image: 'assets/banners/carrosel-1.png'},
-    {image: 'assets/banners/carrosel-1.png'},
-    {image: 'assets/banners/carrosel-1.png'},
+    {image: 'assets/banners/carrosel-2.png'},
+    {image: 'assets/banners/carrosel-3.png'},
   ];
 
   activeIndex = 0;
