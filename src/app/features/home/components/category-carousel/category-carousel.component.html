@@ -1,0 +1,18 @@
+<div class="carousel-container">
+  <h2>{{ title }}</h2>
+
+  <div class="carousel-wrapper">
+    <button class="nav left" (click)="prev()">&#10094;</button>
+    <div class="carousel">
+      <div
+        class="carousel-item"
+        *ngFor="let item of items.slice(currentIndex, currentIndex + 4)">
+        <div class="circle">
+          <img [src]="item.image" alt="{{ item.label }}" />
+        </div>
+        <p>{{ item.label }}</p>
+      </div>
+    </div>
+    <button class="nav right" (click)="next()">&#10095;</button>
+  </div>
+</div>
