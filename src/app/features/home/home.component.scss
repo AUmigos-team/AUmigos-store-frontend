@@ -1,0 +1,53 @@
+.recommended-wrapper {
+  position: relative;
+  background: #f7f2eb;
+  padding: 48px 24px;
+  text-align: center;
+  border-radius: 0;
+  margin-top: 4rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: #f7f2eb;
+    border-bottom-left-radius: 100% 40px;
+    border-bottom-right-radius: 100% 40px;
+    z-index: -1;
+  }
+
+  h2 {
+    margin-bottom: 24px;
+    font-size: 40px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 9000;
+    color: #504D4B;
+  }
+
+  .carousel-controls {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+
+    button {
+      background: #e0ded9;
+      border: none;
+      margin-left: 4px;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  }
+
+  .recommended-list {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+}
