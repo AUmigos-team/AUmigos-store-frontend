@@ -8,7 +8,7 @@
         class="carousel-item"
         *ngFor="let item of items.slice(currentIndex, currentIndex + 4)">
         <div class="circle">
-          <img [src]="item.image" alt="{{ item.label }}" />
+          <img [src]="'/assets/' + item.image" alt="{{ item.label }}" />
         </div>
         <p>{{ item.label }}</p>
       </div>

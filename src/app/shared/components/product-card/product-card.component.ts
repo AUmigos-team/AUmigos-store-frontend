@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Product} from '../../../core/interfaces/product';
 
+
 @Component({
   selector: 'app-product-card',
   standalone: true,
