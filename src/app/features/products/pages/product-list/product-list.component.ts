@@ -73,9 +73,10 @@ export class ProductListComponent implements OnInit {
         if (res.content.length > 0) {
           if (search) {
             this.tituloPagina = `Resultados para "${search}"`;
-          } else if (categoria || subcategoria) {
-            const sub = res.content[0].subcategory?.name || '';
-            this.tituloPagina = `${sub} para ${this.getNomeCategoria(categoria)}`;
+          } else if (categoria && subcategoria) {
+            this.tituloPagina = `${this.formatarNome(subcategoria)} para ${this.getNomeCategoria(categoria)}`;
+          } else if (categoria) {
+            this.tituloPagina = `Produtos para ${this.getNomeCategoria(categoria)}`;
           } else {
             this.tituloPagina = 'Lista de Produtos';
           }
