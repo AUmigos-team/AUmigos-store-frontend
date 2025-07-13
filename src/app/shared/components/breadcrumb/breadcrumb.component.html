@@ -1,0 +1,11 @@
+<nav class="breadcrumb">
+  <ng-container *ngIf="busca; else categorias">
+    Resultado para "<strong>{{ busca }}</strong>"
+  </ng-container>
+
+  <ng-template #categorias>
+    <a *ngIf="categoria" [routerLink]="['/produtos', categoria.slug]">{{ categoria.name }}</a>
+    <span *ngIf="categoria && subcategoria"> > </span>
+    <span *ngIf="subcategoria">{{ subcategoria.name }}</span>
+  </ng-template>
+</nav>
