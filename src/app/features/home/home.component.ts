@@ -49,12 +49,16 @@ export class HomeComponent implements OnInit {
 
       this.dogItems = dogCategory?.subcategories?.map((sub) => ({
         image: sub.image,
-        label: sub.name
+        label: sub.name,
+        categorySlug: dogCategory.slug,
+        subSlug: this.slugify(sub.name)
       })) || [];
 
       this.catItems = catCategory?.subcategories?.map((sub) => ({
         image: sub.image,
-        label: sub.name
+        label: sub.name,
+        categorySlug: catCategory.slug,
+        subSlug: this.slugify(sub.name)
       })) || [];
 
     });
@@ -64,6 +68,17 @@ export class HomeComponent implements OnInit {
     this.cartService.addProduct(productId).subscribe(() => {
       this.cartSidebarService.openCart();
     });
+  }
+
+  private slugify(text: string): string {
+    return text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-')
+      .trim();
   }
 
 }
