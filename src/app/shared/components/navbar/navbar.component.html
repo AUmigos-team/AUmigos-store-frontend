@@ -4,7 +4,18 @@
       <img src="assets/logo-aumigos.png" alt="AUmigos Logo" class="logo" />
     </a>
 
-    <input class="search" placeholder="O que seu pet precisa?" />
+    <form (submit)="onSearch()" class="search-wrapper">
+      <input
+        class="search"
+        type="text"
+        placeholder="O que seu pet precisa?"
+        [formControl]="searchControl"
+        (keyup.enter)="onSearch()"
+      />
+      <button type="submit" class="search-icon">
+        <mat-icon>search</mat-icon>
+      </button>
+    </form>
 
     <div class="icons">
       <button mat-icon-button (click)="cartOpen = true">

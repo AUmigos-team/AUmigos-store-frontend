@@ -11,6 +11,8 @@ import { CategoryService } from '../../../core/services/category.service';
 import { AuthService } from '../../../core/services/auth-service.service';
 import {CartComponent} from '../../../features/cart/pages/cart/cart.component';
 import {CartSidebarService} from '../../../core/services/cart-side-bar.service';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
+
 
 @Component({
   selector: 'app-navbar',
@@ -22,7 +24,8 @@ import {CartSidebarService} from '../../../core/services/cart-side-bar.service';
     MatButtonModule,
     CategoryDropdownComponent,
     RouterModule,
-    CartComponent
+    CartComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
@@ -34,6 +37,7 @@ export class NavbarComponent implements OnInit {
   userName = '';
   userProfilePicture: string | null = null;
   cartOpen = false;
+  searchControl = new FormControl('');
 
   private closeTimeout: any;
 
@@ -68,9 +72,7 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.auth.logout();
-    this.router.navigate(['/']).then(() => {
-      location.reload();
-    });
+    this.router.navigate(['/']);
   }
 
   onMouseEnter(): void {
@@ -82,5 +84,12 @@ export class NavbarComponent implements OnInit {
     this.closeTimeout = setTimeout(() => {
       this.dropdownOpen = false;
     }, 200);
+  }
+
+  onSearch(): void {
+    const term = this.searchControl.value?.trim();
+    if (term && term.length >= 2) {
+      this.router.navigate(['/buscar', term]);
+    }
   }
 }

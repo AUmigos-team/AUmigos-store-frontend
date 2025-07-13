@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavigationEnd, Router, RouterModule, RouterOutlet} from '@angular/router';
+import {NavigationEnd, NavigationStart, Router, RouterModule, RouterOutlet} from '@angular/router';
 import {NavbarComponent} from './shared/components/navbar/navbar.component';
 import { filter } from 'rxjs/operators';
 import {CommonModule} from '@angular/common';

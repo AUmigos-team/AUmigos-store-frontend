@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {BreadcrumbComponent} from '../../../../shared/components/breadcrumb/breadcrumb.component';
-import {ProductCardComponent} from '../../../../shared/components/product-card/product-card.component';
-import {HttpClient} from '@angular/common/http';
-import {CommonModule} from '@angular/common';
-import {CartService} from '../../../../core/services/cart.service';
-import {CartSidebarService} from '../../../../core/services/cart-side-bar.service';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { combineLatest } from 'rxjs';
+
+import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/breadcrumb.component';
+import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
+import { CartService } from '../../../../core/services/cart.service';
+import { CartSidebarService } from '../../../../core/services/cart-side-bar.service';
 
 @Component({
   selector: 'app-product-list',
@@ -19,6 +21,9 @@ export class ProductListComponent implements OnInit {
   subcategoriaSlug = '';
   produtos: any[] = [];
   tituloPagina = 'Lista de Produtos';
+  busca = '';
+  categoriaLabel = '';
+  subcategoriaLabel = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -28,33 +33,23 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const categoria = params['categoria'];
-      const subcategoria = params['subcategoria'];
+    combineLatest([
+      this.route.paramMap,
+      this.route.queryParamMap
+    ]).subscribe(([params, query]) => {
+      const categoria = params.get('categoria') || '';
+      const subcategoria = params.get('subcategoria') || '';
+      const search = params.get('termo') || query.get('search') || '';
 
-      this.categoriaSlug = categoria || '';
-      this.subcategoriaSlug = subcategoria || '';
+      this.categoriaSlug = categoria;
+      this.subcategoriaSlug = subcategoria;
+      this.busca = search;
 
-      this.definirTituloPagina(categoria, subcategoria);
-      this.fetchProducts(categoria, subcategoria);
+      this.categoriaLabel = this.getNomeCategoria(categoria);
+      this.subcategoriaLabel = this.formatarNome(subcategoria);
+
+      this.fetchProducts(categoria, subcategoria, search);
     });
-
-    this.route.queryParams.subscribe(query => {
-      const search = query['search'];
-      if (search) {
-        this.tituloPagina = `Resultados para "${search}"`;
-      }
-    });
-  }
-
-  definirTituloPagina(categoria: string, subcategoria: string) {
-    if (subcategoria) {
-      this.tituloPagina = this.formatarNome(subcategoria);
-    } else if (categoria) {
-      this.tituloPagina = this.formatarNome(categoria);
-    } else {
-      this.tituloPagina = 'Lista de Produtos';
-    }
   }
 
   formatarNome(slug: string): string {
@@ -63,29 +58,34 @@ export class ProductListComponent implements OnInit {
       .replace(/\b\w/g, letra => letra.toUpperCase());
   }
 
-  fetchProducts(categoria: string, subcategoria: string) {
+  fetchProducts(categoria: string, subcategoria: string, search: string) {
     const url = '/api/products';
-    const params: any = {
-      page: 0,
-      size: 12,
-      category: categoria,
-      subcategory: subcategoria
-    };
+    const params: any = { page: 0, size: 10 };
+
+    if (categoria) params.category = categoria;
+    if (subcategoria) params.subcategory = subcategoria;
+    if (search) params.search = search;
 
     this.http.get(url, { params }).subscribe({
       next: (res: any) => {
         this.produtos = res.content;
 
         if (res.content.length > 0) {
-          const sub = res.content[0].subcategory?.name || '';
-          const cat = categoria;
-          this.tituloPagina = `${sub} para ${this.getNomeCategoria(cat)}`;
+          if (search) {
+            this.tituloPagina = `Resultados para "${search}"`;
+          } else if (categoria || subcategoria) {
+            const sub = res.content[0].subcategory?.name || '';
+            this.tituloPagina = `${sub} para ${this.getNomeCategoria(categoria)}`;
+          } else {
+            this.tituloPagina = 'Lista de Produtos';
+          }
         } else {
-          this.tituloPagina = 'Nenhum produto encontrado';
+          this.tituloPagina = search
+            ? `Nenhum resultado encontrado para "${search}"`
+            : 'Nenhum produto encontrado';
         }
       },
       error: err => {
-        console.error('Erro ao buscar produtos', err);
         this.tituloPagina = 'Erro ao carregar produtos';
       }
     });
@@ -106,7 +106,6 @@ export class ProductListComponent implements OnInit {
       'outros-pets': 'Outros Pets',
       'casa-e-jardim': 'Casa e Jardim'
     };
-    return map[slug] || slug.charAt(0).toUpperCase() + slug.slice(1);
+    return map[slug] || this.formatarNome(slug);
   }
-
 }

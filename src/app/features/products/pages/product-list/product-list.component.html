@@ -1,8 +1,9 @@
 <div class="product-list-page container">
   <app-breadcrumb
-    [categoria]="{ name: categoriaSlug, slug: categoriaSlug }"
-    [subcategoria]="{ name: subcategoriaSlug, slug: subcategoriaSlug }"
-  ></app-breadcrumb>
+    [busca]="busca"
+    [categoria]="categoriaSlug ? { name: categoriaLabel, slug: categoriaSlug } : undefined"
+    [subcategoria]="subcategoriaSlug ? { name: subcategoriaLabel, slug: subcategoriaSlug } : undefined">
+  </app-breadcrumb>
 
   <h1 class="page-title">{{ tituloPagina }}</h1>
 

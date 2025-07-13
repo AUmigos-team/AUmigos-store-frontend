@@ -26,7 +26,19 @@ export const routes: Routes = [
       import('./features/auth/pages/profile/profile.component').then((m) => m.ProfileComponent),
   },
   {
+    path: 'produtos',
+    component: ProductListComponent
+  },
+  {
+    path: 'produtos/:categoria',
+    component: ProductListComponent
+  },
+  {
     path: 'produtos/:categoria/:subcategoria',
+    component: ProductListComponent
+  },
+  {
+    path: 'buscar/:termo',
     component: ProductListComponent
   }
 ];

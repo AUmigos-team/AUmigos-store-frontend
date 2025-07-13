@@ -32,20 +32,42 @@ body {
     height: 39px;
   }
 
-  .search {
+  .search-wrapper {
+    position: relative;
     flex: 1;
     margin: 0 2rem;
-    padding: 0.8rem 1rem;
-    border-radius: 15px;
-    border: 1px solid #999;
-    background: transparent;
-    color: #504D4B;
+    display: flex;
+    align-items: center;
 
-    &::placeholder {
-      font-size: 0.9rem;
-      color: #ccc;
+    .search {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      padding-right: 3rem;
+      border-radius: 15px;
+      border: 1px solid #999;
+      background: transparent;
+      color: #504D4B;
+
+      &::placeholder {
+        font-size: 0.9rem;
+        color: #ccc;
+      }
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: #504D4B;
+      cursor: pointer;
+
+      mat-icon {
+        font-size: 22px;
+      }
     }
   }
+
 
   .icons {
     display: flex;
