@@ -77,4 +77,9 @@ export class AuthService {
       map(response => response.client)
     );
   }
+
+  getToken(): string | null {
+    return localStorage.getItem('access_token');
+  }
+
 }
