@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { guestGuard } from './core/guards/guest.guard';
+import {ProductListComponent} from './features/products/pages/product-list/product-list.component';
 
 export const routes: Routes = [
   {
@@ -23,5 +24,9 @@ export const routes: Routes = [
     path: 'meus-dados',
     loadComponent: () =>
       import('./features/auth/pages/profile/profile.component').then((m) => m.ProfileComponent),
+  },
+  {
+    path: 'produtos/:categoria/:subcategoria',
+    component: ProductListComponent
   }
 ];
