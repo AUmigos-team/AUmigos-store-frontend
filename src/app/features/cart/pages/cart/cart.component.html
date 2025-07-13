@@ -34,7 +34,7 @@
           <span>Subtotal</span>
           <strong>R$ {{ total | number: '1.2-2' }}</strong>
         </div>
-        <button class="finalize-btn">Finalizar Pedido</button>
+        <button class="finalize-btn" (click)="goToCheckout()">Finalizar Pedido</button>
         <button class="back-btn" (click)="onClose()">Voltar</button>
       </div>
     </div>

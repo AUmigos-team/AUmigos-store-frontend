@@ -92,4 +92,9 @@ export class NavbarComponent implements OnInit {
       this.router.navigate(['/buscar', term]);
     }
   }
+
+  onCheckout() {
+    this.cartOpen = false;
+    this.router.navigate(['/checkout']);
+  }
 }

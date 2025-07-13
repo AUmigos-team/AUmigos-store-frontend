@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { guestGuard } from './core/guards/guest.guard';
 import {ProductListComponent} from './features/products/pages/product-list/product-list.component';
+import {CheckoutPageComponent} from './features/checkout/pages/checkout-page/checkout-page.component';
 
 export const routes: Routes = [
   {
@@ -40,5 +41,10 @@ export const routes: Routes = [
   {
     path: 'buscar/:termo',
     component: ProductListComponent
+  },
+  {
+    path: 'checkout',
+    loadComponent: () =>
+      import('./features/checkout/pages/checkout-page/checkout-page.component').then(m => m.CheckoutPageComponent),
   }
 ];

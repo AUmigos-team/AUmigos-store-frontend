@@ -11,6 +11,7 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class CartItemComponent {
   @Input() item!: any;
+  @Input() readOnly = false;
 
   @Output() increaseQuantity = new EventEmitter<number>();
   @Output() decreaseQuantity = new EventEmitter<number>();

@@ -9,14 +9,14 @@
       <div class="item-price">{{ item.product.price | currency:'BRL':'symbol':'1.2-2' }}</div>
 
       <div class="actions">
-        <button class="trash" (click)="remove()">
-        <mat-icon>delete_outline</mat-icon>
+        <button *ngIf="!readOnly" class="trash" (click)="remove()">
+          <mat-icon>delete_outline</mat-icon>
         </button>
 
         <div class="quantity-box">
-          <button class="qty-btn" (click)="decrease()">−</button>
+          <button *ngIf="!readOnly" class="qty-btn" (click)="decrease()">−</button>
           <span class="qty">{{ item.quantity }}</span>
-          <button class="qty-btn" (click)="increase()">+</button>
+          <button *ngIf="!readOnly" class="qty-btn" (click)="increase()">+</button>
         </div>
       </div>
     </div>

@@ -1,0 +1,42 @@
+<h2>Adicionar Endereço</h2>
+<p class="subtitle">Informe os dados do endereço para entrega.</p>
+
+<form [formGroup]="form">
+  <div class="form-row">
+    <div class="field">
+      <label>CEP</label>
+      <input formControlName="cep" (blur)="onCepChange()" />
+    </div>
+    <div class="field">
+      <label>Estado</label>
+      <input formControlName="estado" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="field">
+      <label>Cidade</label>
+      <input formControlName="cidade" />
+    </div>
+    <div class="field">
+      <label>Bairro</label>
+      <input formControlName="bairro" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="field">
+      <label>Rua</label>
+      <input formControlName="rua" />
+    </div>
+    <div class="field" style="max-width: 120px;">
+      <label>Número</label>
+      <input formControlName="numero" />
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="cancel" (click)="close()">Cancelar</button>
+    <button type="button" class="save" (click)="save()" [disabled]="form.invalid">Salvar</button>
+  </div>
+</form>

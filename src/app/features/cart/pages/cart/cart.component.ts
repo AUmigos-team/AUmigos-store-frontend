@@ -5,6 +5,7 @@ import {CartItemComponent} from '../../components/cart-item/cart-item.component'
 import {CommonModule, DecimalPipe} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {firstValueFrom} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -15,10 +16,11 @@ import {firstValueFrom} from 'rxjs';
 })
 export class CartComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
+  @Output() checkout = new EventEmitter<void>();
 
   cart: Cart | null = null;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router: Router ) {}
 
   ngOnInit() {
     this.loadCart();
@@ -68,5 +70,7 @@ export class CartComponent implements OnInit {
     removeAll();
   }
 
-
+  goToCheckout(): void {
+    this.checkout.emit();
+  }
 }

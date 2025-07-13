@@ -1,0 +1,15 @@
+<div class="cart-item-box">
+  <img [src]="item.imageUrl" alt="{{ item.name }}" class="product-img" />
+
+  <div class="info">
+    <div class="name">{{ item.name }}</div>
+    <div class="brand">{{ item.brand?.name }}</div>
+    <div class="price">R$ {{ item.price | number: '1.2-2' }}</div>
+  </div>
+
+  <div class="qty-box">
+    <button (click)="decrease()">-</button>
+    <span>{{ item.quantity }}</span>
+    <button (click)="increase()">+</button>
+  </div>
+</div>
