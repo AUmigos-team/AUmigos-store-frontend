@@ -1,0 +1,93 @@
+<div class="auth-form-container">
+  <div class="title-with-avatar">
+    <h2 class="form-title">{{ title }}</h2>
+    <div class="avatar-upload" *ngIf="mode !== 'login'">
+      <label for="profilePicture">
+        <div class="avatar-circle">
+          <ng-container *ngIf="!previewUrl; else preview">
+            <span class="material-icons">photo_camera</span>
+          </ng-container>
+          <ng-template #preview>
+            <img [src]="previewUrl || ('data:image/jpeg;base64,' + form.value.profilePicture)" alt="Foto de perfil" />
+          </ng-template>
+        </div>
+        <input id="profilePicture" type="file" accept="image/*" hidden (change)="onFileSelected($event)" />
+      </label>
+    </div>
+  </div>
+
+  <ng-content></ng-content>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label *ngIf="mode !== 'login'">
+      <span>Nome completo*</span>
+      <input type="text" formControlName="name" />
+    </label>
+
+    <label>
+      <span>E-mail*</span>
+      <input type="email" formControlName="email" />
+    </label>
+
+    <label *ngIf="mode !== 'login'">
+      <span>Telefone*</span>
+      <input type="text" formControlName="phone" />
+    </label>
+
+    <label *ngIf="mode !== 'login'">
+      <span>CPF*</span>
+      <input type="text" formControlName="cpf" />
+    </label>
+
+    <div *ngIf="mode !== 'login'" class="birthdate-row">
+      <label>
+        <span>Dia*</span>
+        <select formControlName="birthDay">
+          <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+        </select>
+      </label>
+
+      <label>
+        <span>Mês*</span>
+        <select formControlName="birthMonth">
+          <option *ngFor="let month of months" [value]="month.value">{{ month.label }}</option>
+        </select>
+      </label>
+
+      <label>
+        <span>Ano*</span>
+        <select formControlName="birthYear">
+          <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+        </select>
+      </label>
+    </div>
+
+    <label *ngIf="mode !== 'login'">
+      <span>Gênero*</span>
+      <select formControlName="gender">
+        <option value="">Selecione</option>
+        <option value="M">Masculino</option>
+        <option value="F">Feminino</option>
+        <option value="O">Outro</option>
+      </select>
+    </label>
+
+    <label *ngIf="mode === 'login' || mode === 'register'">
+      <span>Senha*</span>
+      <input [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+    </label>
+
+    <label *ngIf="mode === 'register'">
+      <span>Confirmar senha*</span>
+      <input [type]="hidePassword ? 'password' : 'text'" formControlName="confirmPassword" />
+    </label>
+
+    <button type="submit" class="submit-btn">
+      {{ mode === 'login' ? 'Entrar' : mode === 'register' ? 'Criar conta' : 'Salvar' }}
+    </button>
+  </form>
+
+  <p class="terms">
+    Ao acessar você está de acordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>.
+  </p>
+</div>

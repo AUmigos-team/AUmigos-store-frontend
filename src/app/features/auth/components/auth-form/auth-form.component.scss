@@ -1,0 +1,131 @@
+.auth-form-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 4rem auto;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+
+  .title-with-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .form-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+      font-size: 28px;
+      color: rgba(80, 77, 75, 0.8314);
+      margin: 0;
+    }
+
+    .avatar-upload {
+      label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .avatar-circle {
+        width: 40px;
+        height: 40px;
+        border: 2px dashed #835947;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fdf8f4;
+        overflow: hidden;
+        transition: border-color 0.3s ease;
+
+        &:hover {
+          border-color: #6b4226;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        .material-icons {
+          font-size: 16px;
+          color: #835947;
+        }
+      }
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #3b3b3b;
+
+      span {
+        margin-bottom: 0.3rem;
+      }
+
+      input,
+      select {
+        padding: 0.9rem 1rem;
+        border: 1px solid #835947;
+        border-radius: 12px;
+        font-size: 15px;
+        font-family: 'Poppins', sans-serif;
+        background: #fff;
+      }
+    }
+
+    .birthdate-row {
+      display: flex;
+      gap: 0.5rem;
+
+      label {
+        flex: 1;
+      }
+    }
+
+    .submit-btn {
+      background-color: #6b4226;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 12px;
+      padding: 0.9rem;
+      font-size: 1rem;
+      margin-top: 1rem;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #4e2e1a;
+      }
+    }
+  }
+
+  .terms {
+    margin-top: 2rem;
+    font-size: 12px;
+    color: #888;
+
+    a {
+      color: #835947;
+      font-weight: 500;
+      text-decoration: underline;
+    }
+  }
+}

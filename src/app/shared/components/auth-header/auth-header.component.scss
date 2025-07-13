@@ -1,0 +1,30 @@
+.auth-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  .logo-link {
+    display: flex;
+    align-items: center;
+
+    .logo {
+      height: 40px;
+    }
+  }
+
+  .secure-area {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6b4226;
+    font-weight: 500;
+    font-size: 14px;
+
+    .lock-icon {
+      font-size: 20px;
+    }
+  }
+}
