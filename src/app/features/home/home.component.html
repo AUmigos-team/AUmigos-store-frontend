@@ -6,9 +6,10 @@
   <h2>Produtos Recomendados</h2>
   <div class="recommended-list">
     <app-product-card
-      *ngFor="let item of recommendedProducts"
-      [product]="item"
-    ></app-product-card>
+      *ngFor="let product of recommendedProducts"
+      [product]="product"
+      (addToCart)="onAddToCart($event)">
+    </app-product-card>
   </div>
 </div>
 <div class="carrossel">

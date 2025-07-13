@@ -1,0 +1,42 @@
+<div class="cart-overlay" (click)="onClose()">
+  <div class="cart-sidebar" (click)="$event.stopPropagation()">
+    <div class="header">
+      <h2>Carrinho</h2>
+      <button class="close-btn" (click)="onClose()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="items">
+      <ng-container *ngIf="hasItems; else emptyCart">
+        <app-cart-item
+          *ngFor="let item of cart?.items"
+          [item]="item"
+          (increaseQuantity)="onIncrease($event)"
+          (decreaseQuantity)="onDecrease($event)"
+          (removeProduct)="onRemove($event)">
+        </app-cart-item>
+      </ng-container>
+
+      <ng-template #emptyCart>
+        <div class="empty-cart">
+          <mat-icon class="big-icon">local_mall</mat-icon>
+          <p class="title">Você ainda não tem<br />produtos adicionados à sacola.</p>
+          <p class="desc">Escolha tudo que o seu pet precisa e adicione à sacola para comprar.</p>
+        </div>
+      </ng-template>
+    </div>
+
+
+    <div class="footer">
+      <div class="teste">
+        <div class="subtotal">
+          <span>Subtotal</span>
+          <strong>R$ {{ total | number: '1.2-2' }}</strong>
+        </div>
+        <button class="finalize-btn">Finalizar Pedido</button>
+        <button class="back-btn" (click)="onClose()">Voltar</button>
+      </div>
+    </div>
+  </div>
+</div>

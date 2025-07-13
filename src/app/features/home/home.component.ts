@@ -6,9 +6,10 @@ import { BannerCarouselComponent } from './components/banner-carousel/banner-car
 import { ProductCardComponent } from '../../shared/components/product-card/product-card.component';
 import { ProductService } from '../../core/services/product.service';
 import {Product} from '../../core/interfaces/product';
-import { Subcategory } from '../../core/interfaces/subcategory';
 import { Category } from '../../core/interfaces/category';
 import {CategoryCarouselComponent} from './components/category-carousel/category-carousel.component';
+import {CartService} from '../../core/services/cart.service';
+import {CartSidebarService} from '../../core/services/cart-side-bar.service';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +31,9 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private cartService: CartService,
+    private cartSidebarService: CartSidebarService
   ) {}
 
   ngOnInit(): void {
@@ -56,4 +59,11 @@ export class HomeComponent implements OnInit {
 
     });
   }
+
+  onAddToCart(productId: number) {
+    this.cartService.addProduct(productId).subscribe(() => {
+      this.cartSidebarService.openCart();
+    });
+  }
+
 }

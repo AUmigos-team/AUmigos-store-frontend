@@ -9,6 +9,8 @@ import { CategoryDropdownComponent } from './category-dropdown/category-dropdown
 import { Category } from '../../../core/interfaces/category';
 import { CategoryService } from '../../../core/services/category.service';
 import { AuthService } from '../../../core/services/auth-service.service';
+import {CartComponent} from '../../../features/cart/pages/cart/cart.component';
+import {CartSidebarService} from '../../../core/services/cart-side-bar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +21,8 @@ import { AuthService } from '../../../core/services/auth-service.service';
     MatIconModule,
     MatButtonModule,
     CategoryDropdownComponent,
-    RouterModule
+    RouterModule,
+    CartComponent
   ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
@@ -30,13 +33,15 @@ export class NavbarComponent implements OnInit {
   isLoggedIn = false;
   userName = '';
   userProfilePicture: string | null = null;
+  cartOpen = false;
 
   private closeTimeout: any;
 
   constructor(
     private router: Router,
     public auth: AuthService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private cartSidebarService: CartSidebarService
   ) {}
 
   ngOnInit(): void {
@@ -51,8 +56,13 @@ export class NavbarComponent implements OnInit {
           : null;
       setTimeout(() => {}, 0);
     });
+
     this.categoryService.getAllCategories().subscribe((data) => {
       this.categories = data;
+    });
+
+    this.cartSidebarService.openCart$.subscribe(() => {
+      this.cartOpen = true;
     });
   }
 

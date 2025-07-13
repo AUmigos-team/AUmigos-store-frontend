@@ -1,0 +1,113 @@
+.cart-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid #eee;
+  align-items: center;
+
+  .item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .item-name {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      line-height: 1.4;
+      color: #504D4B;
+    }
+
+    .item-brand {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 0.5rem;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .bottom-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .item-price {
+        font-weight: bold;
+        font-size: 16px;
+        color: #835947;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        .trash {
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+          display: flex;
+          align-items: center;
+
+          img {
+            width: 20px;
+            height: 20px;
+            opacity: 0.6;
+            transition: opacity 0.2s ease;
+
+            &:hover {
+              opacity: 1;
+            }
+          }
+
+          mat-icon {
+            font-size: 20px;
+            color: #b0b0b0;
+            transition: color 0.2s ease;
+
+            &:hover {
+              color: #835947;
+            }
+          }
+        }
+
+        .quantity-box {
+          display: flex;
+          align-items: center;
+          border: 1px solid #ddd;
+          border-radius: 999px;
+          padding: 0.3rem 0.8rem;
+          background: #fff;
+
+          .qty-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #504D4B;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-weight: bold;
+          }
+
+          .qty {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 10px;
+            color: #504D4B;
+            font-family: 'Poppins', sans-serif;
+          }
+        }
+      }
+    }
+  }
+}

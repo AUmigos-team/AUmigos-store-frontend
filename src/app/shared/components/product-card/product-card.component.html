@@ -5,7 +5,7 @@
       {{ product.averageRating.toFixed(1).replace('.', ',') }}
     </div>
     <img [src]="product.imageUrl" [alt]="product.name" />
-    <div class="add-button">+</div>
+    <div class="add-button" (click)="addToCart.emit(product.id)">+</div>
   </div>
   <div class="name">{{ product.name }}</div>
   <div class="price">{{ product.price | currency:'BRL':'symbol':'1.2-2' }}</div>

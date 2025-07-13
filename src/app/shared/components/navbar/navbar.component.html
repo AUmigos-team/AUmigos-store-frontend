@@ -7,7 +7,7 @@
     <input class="search" placeholder="O que seu pet precisa?" />
 
     <div class="icons">
-      <button mat-icon-button>
+      <button mat-icon-button (click)="cartOpen = true">
         <mat-icon>shopping_cart</mat-icon>
       </button>
       <div class="profile-wrapper"
@@ -59,4 +59,4 @@
     </div>
 </div>
 
-
+<app-cart *ngIf="cartOpen" (close)="cartOpen = false"></app-cart>
