@@ -47,9 +47,15 @@ export class AddressDialogComponent {
 
   save() {
     if (this.form.valid) {
-      this.dialogRef.close(this.form.value);
+      const endereco = this.form.value;
+
+      localStorage.setItem('enderecoSalvo', JSON.stringify(endereco));
+      this.dialogRef.close(endereco);
+
+      location.reload();
     }
   }
+
 
   close() {
     this.dialogRef.close();

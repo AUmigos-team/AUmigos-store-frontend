@@ -1,14 +1,28 @@
 <div class="checkout-container">
   <div class="checkout-content">
+
     <!-- Coluna Esquerda -->
     <section class="left-column">
-      <app-delivery-address-box></app-delivery-address-box>
-      <app-payment-method-box></app-payment-method-box>
-      <app-order-sumary-box></app-order-sumary-box>
+      <app-delivery-address-box
+        (enderecoSelecionado)="onEnderecoPreenchido($event)">
+      </app-delivery-address-box>
+
+      <app-payment-method-box (pagamentoConfirmado)="onMetodoSelecionado($event)"></app-payment-method-box>
+
+
+      <app-order-sumary-box
+        [endereco]="enderecoSelecionado"
+        [pagamento]="pagamentoSelecionado"
+        [subtotal]="subtotal"
+        [cartItems]="cartItems"
+        (fazerPedido)="finalizarPedido()">
+      </app-order-sumary-box>
+
     </section>
 
+    <!-- Coluna Direita -->
     <section class="right-column">
-      <H2 class="items-title">Detalhes dos itens</H2>
+      <h2 class="items-title">Detalhes dos itens</h2>
 
       <app-cart-item
         *ngFor="let item of cartItems"

@@ -1,23 +1,82 @@
-<div class="box">
-  <h3>Método de Pagamento</h3>
-  <div class="tabs">
-    <button class="tab active">Cartão</button>
-    <button class="tab">Pix</button>
-    <button class="tab">Boleto</button>
+<div class="payment-box">
+  <div class="header">
+    <h3>Método de Pagamento</h3>
+
+    <div class="tabs">
+      <button
+        *ngFor="let metodo of metodos"
+        [class.active]="metodo === metodoSelecionado"
+        (click)="selecionarMetodo(metodo)">
+        <span class="material-icons">
+          {{ getIcon(metodo) }}
+        </span>
+        {{ getLabel(metodo) }}
+      </button>
+    </div>
   </div>
 
-  <div class="inputs">
-    <input type="text" placeholder="Número do Cartão" />
-    <input type="text" placeholder="Nome do Titular" />
+  <div class="form-content" *ngIf="metodoSelecionado === 'cartao'">
+    <input placeholder="Número do Cartão" />
+    <input placeholder="Nome do Titular" />
     <div class="row">
       <select><option>MM</option></select>
       <select><option>YY</option></select>
-      <input type="text" placeholder="Código de segurança" />
-      <select><option>Quantidade de parcelas</option></select>
+      <input placeholder="Código de segurança" />
+      <select><option>Parcelas</option></select>
     </div>
     <label class="save-option">
       <input type="checkbox" />
       salvar para próximo pagamento
     </label>
+    <div class="actions">
+      <button
+        *ngIf="!pagamentoFoiConfirmado"
+        class="confirm-btn"
+        (click)="confirmarPagamento()">
+        Confirmar Pagamento
+      </button>
+      <button
+        *ngIf="pagamentoFoiConfirmado"
+        class="confirm-btn confirmado"
+        disabled>
+        Pagamento Selecionado
+      </button>
+    </div>
+  </div>
+
+  <div class="form-content" *ngIf="metodoSelecionado === 'pix'">
+    <p>Você receberá um QR Code para pagamento instantâneo.</p>
+    <div class="actions">
+      <button
+        *ngIf="!pagamentoFoiConfirmado"
+        class="confirm-btn"
+        (click)="confirmarPagamento()">
+        Confirmar Pagamento
+      </button>
+      <button
+        *ngIf="pagamentoFoiConfirmado"
+        class="confirm-btn confirmado"
+        disabled>
+        Pagamento Selecionado
+      </button>
+    </div>
+  </div>
+
+  <div class="form-content" *ngIf="metodoSelecionado === 'boleto'">
+    <p>O boleto será gerado após a finalização do pedido.</p>
+    <div class="actions">
+      <button
+        *ngIf="!pagamentoFoiConfirmado"
+        class="confirm-btn"
+        (click)="confirmarPagamento()">
+        Confirmar Pagamento
+      </button>
+      <button
+        *ngIf="pagamentoFoiConfirmado"
+        class="confirm-btn confirmado"
+        disabled>
+        Pagamento Selecionado
+      </button>
+    </div>
   </div>
 </div>

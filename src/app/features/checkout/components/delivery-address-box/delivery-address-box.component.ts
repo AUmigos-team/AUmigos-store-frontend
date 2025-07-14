@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {AddressDialogComponent} from '../address-dialog/address-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -11,9 +11,12 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrls: ['./delivery-address-box.component.scss']
 })
 export class DeliveryAddressBoxComponent implements OnInit {
+  @Output() enderecoSelecionado = new EventEmitter<string>();
+
   constructor(private dialog: MatDialog) {}
 
   public enderecoTexto = 'Nenhum endereço cadastrado';
+
 
   public endereco?: {
     cep: string;
@@ -30,6 +33,7 @@ export class DeliveryAddressBoxComponent implements OnInit {
       const enderecoSalvo = JSON.parse(enderecoString);
       this.endereco = enderecoSalvo;
       this.enderecoTexto = `${enderecoSalvo.rua}, ${enderecoSalvo.numero} - ${enderecoSalvo.bairro}, ${enderecoSalvo.cidade} - ${enderecoSalvo.estado}`;
+      this.enderecoSelecionado.emit(this.enderecoTexto);
     }
   }
 
