@@ -1,0 +1,20 @@
+<div class="order-card">
+  <p class="label">Pedido</p>
+
+  <div class="produto" *ngFor="let item of pedido.items">
+    <img [src]="item.product.imageUrl" alt="produto" />
+    <div class="info">
+      <p class="name">{{ item.product.name }}</p>
+      <span class="brand">{{ item.product.brand.name }}</span><br />
+      <span class="qty">x{{ item.quantity }}</span>
+    </div>
+    <p class="preco">R$ {{ item.priceUnit | number:'1.2-2' }}</p>
+  </div>
+
+  <div class="bottom">
+    <button class="comprar-novamente" (click)="onComprarNovamente()">Comprar Novamente</button>
+    <div class="total">
+      Total do Pedido: <strong>R$ {{ pedido.totalValue | number:'1.2-2' }}</strong>
+    </div>
+  </div>
+</div>

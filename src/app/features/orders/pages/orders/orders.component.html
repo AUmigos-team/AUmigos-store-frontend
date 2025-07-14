@@ -1,0 +1,21 @@
+<h2 class="title">Meus Pedidos</h2>
+
+<div class="filters">
+  <button [class.active]="!statusSelecionado" (click)="filtrarPorStatus(null)">Tudo</button>
+  <button [class.active]="statusSelecionado === 'A Pagar'" (click)="filtrarPorStatus('A Pagar')">A pagar</button>
+  <button [class.active]="statusSelecionado === 'Preparando'" (click)="filtrarPorStatus('Preparando')">Preparando</button>
+  <button [class.active]="statusSelecionado === 'A Caminho'" (click)="filtrarPorStatus('A Caminho')">A caminho</button>
+  <button [class.active]="statusSelecionado === 'Entregue'" (click)="filtrarPorStatus('Entregue')">Entregue</button>
+  <button [class.active]="statusSelecionado === 'Cancelado'" (click)="filtrarPorStatus('Cancelado')">Cancelado</button>
+
+  <input type="text" placeholder="Você pode buscar pelo produto ou ID" />
+</div>
+
+<div class="orders-list">
+  <app-order-card
+    *ngFor="let pedido of pedidos"
+    [pedido]="pedido"
+    (comprarNovamente)="handleComprarNovamente($event)">
+  </app-order-card>
+
+</div>

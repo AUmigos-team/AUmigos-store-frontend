@@ -18,8 +18,8 @@ export class CartService {
   }
 
   removeProduct(productId: number, quantity: number = 1) {
-    return this.http.post(`/api/cart/remove`, { productId, quantity });
+    return this.http.request('delete', `/api/cart/remove`, {
+      body: { productId, quantity }
+    });
   }
-
-
 }
