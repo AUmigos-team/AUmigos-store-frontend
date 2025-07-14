@@ -1,10 +1,11 @@
 .order-card {
   background: white;
-  border-radius: 10px;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 0 8px #00000010;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px #00000010;
   font-family: 'Inter', sans-serif;
   color: #504d4b;
+  border: 1px solid #ddd;
 
   .label {
     font-weight: 700;
@@ -65,12 +66,19 @@
     .comprar-novamente {
       border: 1px solid #a27a63;
       color: #a27a63;
-      background: none;
+      background: #fff;
       border-radius: 999px;
       padding: 0.4rem 1.2rem;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 600;
       cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #f3ece9;
+      }
     }
+
 
     .total {
       font-weight: 600;
@@ -81,4 +89,46 @@
       }
     }
   }
+  .filters {
+    background: white;
+    padding: 1rem;
+    border-radius: 12px;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+
+    button {
+      background: none;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #7d6c61;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &.active {
+        background: #f3ece9;
+        border: 1px solid #a27a63;
+        color: #a27a63;
+      }
+
+      &:hover {
+        background: #f3ece9;
+      }
+    }
+
+    input {
+      margin-left: auto;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      flex: 1;
+      min-width: 250px;
+    }
+  }
+
 }
