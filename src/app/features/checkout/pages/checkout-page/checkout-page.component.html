@@ -7,7 +7,6 @@
 
       <app-payment-method-box (pagamentoConfirmado)="onMetodoSelecionado($event)"></app-payment-method-box>
 
-
       <app-order-sumary-box
         [endereco]="enderecoSelecionado"
         [pagamento]="pagamentoSelecionado"
@@ -28,6 +27,8 @@
       </app-cart-item>
 
       <app-more-items-button></app-more-items-button>
+      <app-order-confirmation *ngIf="exibirConfirmacao" (close)="navegarParaPedidos()"></app-order-confirmation>
+
     </section>
   </div>
 </div>

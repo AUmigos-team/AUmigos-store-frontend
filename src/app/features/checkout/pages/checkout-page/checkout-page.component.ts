@@ -10,6 +10,8 @@ import {
 } from '../../components/order-sumary-box/order-sumary-box.component';
 import {CartItemComponent} from '../../../cart/components/cart-item/cart-item.component';
 import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {OrderConfirmationComponent} from '../../../../shared/components/order-confirmation.component';
 
 @Component({
   selector: 'app-checkout-page',
@@ -20,7 +22,8 @@ import {HttpClient} from '@angular/common/http';
     PaymentMethodBoxComponent,
     OrderSumaryBoxComponent,
     MoreItemsButtonComponent,
-    CartItemComponent
+    CartItemComponent,
+    OrderConfirmationComponent
   ],
   templateUrl: './checkout-page.component.html',
   styleUrls: ['./checkout-page.component.scss']
@@ -29,13 +32,18 @@ export class CheckoutPageComponent implements OnInit {
   cartItems: CartItem[] = [];
   enderecoSelecionado: string = '';
   pagamentoSelecionado: string = '';
+  exibirConfirmacao = false;
 
   subtotal: number = 0;
 
   public metodoPagamentoSelecionado: string | null = null;
 
 
-  constructor(private cartService: CartService, private http: HttpClient) {}
+  constructor(
+    private cartService: CartService,
+    private http: HttpClient,
+    private router: Router
+    ) {}
 
 
   ngOnInit(): void {
@@ -80,7 +88,7 @@ export class CheckoutPageComponent implements OnInit {
 
     this.http.post('/api/order/process', body).subscribe({
       next: () => {
-        alert('Pedido realizado com sucesso!');
+        this.exibirConfirmacao = true;
       },
       error: () => {
         alert('Erro ao realizar pedido.');
@@ -113,4 +121,7 @@ export class CheckoutPageComponent implements OnInit {
     this.enderecoSelecionado = endereco;
   }
 
+  navegarParaPedidos() {
+    this.router.navigate(['/meus-pedidos']); // ou qualquer outra rota de acompanhamento
+  }
 }
