@@ -5,7 +5,7 @@ import { Order } from '../../../../core/interfaces/order';
 import { HttpClient } from '@angular/common/http';
 import {CartService} from '../../../../core/services/cart.service';
 import {CartSidebarService} from '../../../../core/services/cart-side-bar.service';
-import {forkJoin} from 'rxjs';
+import {concatMap, from} from 'rxjs';
 
 @Component({
   selector: 'app-orders',
@@ -31,20 +31,18 @@ export class OrdersComponent implements OnInit {
       error: (err: any) => console.error('Erro ao buscar pedidos', err)
     });
   }
-
+  
   handleComprarNovamente(items: any[]) {
-    let requests = items.map(item => {
-      const productId = item.product.id;
-      const quantity = item.quantity;
+    const produtos = items.map(item => ({
+      productId: item.product.id,
+      quantity: item.quantity
+    }));
 
-      return this.cartService.addProduct(productId, quantity);
-    });
-
-    forkJoin(requests).subscribe({
-      next: () => {
-        this.cartSidebarService.openCart();
-      },
-      error: (err) => console.error('Erro ao adicionar produtos', err)
+    from(produtos).pipe(
+      concatMap(produto => this.cartService.addProduct(produto.productId, produto.quantity))
+    ).subscribe({
+      next: () => {},
+      complete: () => this.cartSidebarService.openCart()
     });
   }
 
