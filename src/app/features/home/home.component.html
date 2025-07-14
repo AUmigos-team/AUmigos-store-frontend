@@ -1,0 +1,25 @@
+<app-advantages></app-advantages>
+<div class="carousel">
+  <app-banner-carousel ></app-banner-carousel>
+</div>
+<div class="recommended-wrapper">
+  <h2>Produtos Recomendados</h2>
+  <div class="recommended-list">
+    <app-product-card
+      *ngFor="let product of recommendedProducts"
+      [product]="product"
+      (addToCart)="onAddToCart($event)">
+    </app-product-card>
+  </div>
+</div>
+<div class="carrossel">
+  <app-category-carousel
+    [title]="'Tudo para gatos'"
+    [items]="catItems">
+  </app-category-carousel>
+
+  <app-category-carousel
+    [title]="'Tudo para cachorros'"
+    [items]="dogItems">
+  </app-category-carousel>
+</div>

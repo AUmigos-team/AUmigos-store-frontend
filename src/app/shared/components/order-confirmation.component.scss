@@ -1,0 +1,63 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(20, 16, 14, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.confirmation-box {
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 0 10px #00000020;
+
+  h2 {
+    font-size: 1.8rem;
+    color: #504D4B;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .icon-check {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .material-icons {
+      font-size: 100px;
+      color: #b18d7f;
+    }
+  }
+
+
+  .message {
+    color: #504D4B;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+
+  .confirm-button {
+    background-color: #835947;
+    color: white;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #6d4738;
+    }
+  }
+}

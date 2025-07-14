@@ -1,0 +1,24 @@
+<div class="cart-item">
+  <img [src]="item.product.imageUrl" alt="Foto do produto" class="item-image" />
+
+  <div class="item-details">
+    <div class="item-name">{{ item.product.name }}</div>
+    <div class="item-brand">{{ item.product.brand.name }}</div>
+
+    <div class="bottom-row">
+      <div class="item-price">{{ item.product.price | currency:'BRL':'symbol':'1.2-2' }}</div>
+
+      <div class="actions">
+        <button *ngIf="!readOnly" class="trash" (click)="remove()">
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+
+        <div class="quantity-box">
+          <button *ngIf="!readOnly" class="qty-btn" (click)="decrease()">−</button>
+          <span class="qty">{{ item.quantity }}</span>
+          <button *ngIf="!readOnly" class="qty-btn" (click)="increase()">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

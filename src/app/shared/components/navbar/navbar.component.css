@@ -1,8 +1,9 @@
 body {
-  color: white;
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
+  color: #504D4B;
+  background-color: #fff;
 }
 
 .container {
@@ -16,65 +17,226 @@ body {
 
 .navbar {
   padding: 1rem 2rem;
+  background-color: white;
+
+  .avatar-img {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
 
   .logo {
     width: 169px;
     height: 39px;
   }
 
-  .search {
+  .search-wrapper {
+    position: relative;
     flex: 1;
     margin: 0 2rem;
-    padding: 0.8rem 1rem;
-    border-radius: 15px;
-    border: 1px solid #999;
-    background: transparent;
-    color: #AEADAD;
+    display: flex;
+    align-items: center;
 
-    &::placeholder {
-      font-size: 0.9rem;
-      color: #ccc;
+    .search {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      padding-right: 3rem;
+      border-radius: 15px;
+      border: 1px solid #999;
+      background: transparent;
+      color: #504D4B;
+
+      &::placeholder {
+        font-size: 0.9rem;
+        color: #ccc;
+      }
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: #504D4B;
+      cursor: pointer;
+
+      mat-icon {
+        font-size: 22px;
+      }
     }
   }
 
+
   .icons {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
+    align-items: center;
 
     button {
+      background: none;
+      border: none;
       color: #504D4B;
+      cursor: pointer;
+
+      mat-icon {
+        font-size: 24px;
+      }
+    }
+
+    .profile-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      &:hover .dropdown-menu {
+        display: flex;
+        animation: fadeIn 0.2s ease-in-out;
+      }
+
+      .profile-button {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.3rem 0.6rem;
+        border-radius: 6px;
+        transition: background 0.2s ease;
+        cursor: pointer;
+
+        mat-icon {
+          font-size: 24px;
+          color: #504D4B;
+        }
+
+        .text {
+          display: flex;
+          flex-direction: column;
+          line-height: 1;
+
+          .entrar {
+            font-weight: 600;
+            font-size: 13px;
+            color: #835947;
+          }
+
+          .cadastro {
+            font-size: 11px;
+            color: #AEADAD;
+          }
+        }
+
+        &:hover {
+          background-color: #f2f2f2;
+        }
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 6px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        min-width: 200px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+
+        a,
+        button {
+          color: #504D4B;
+          text-decoration: none;
+          padding: 0.4rem 1.5rem;
+          font-size: 14px;
+          border: none;
+          background: none;
+          width: 100%;
+          text-align: left;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #f5f5f5;
+          }
+        }
+
+        .logout {
+          color: #b00020;
+          font-weight: 500;
+        }
+
+        .primary {
+          background-color: #835947;
+          color: white;
+          border-radius: 6px;
+          font-weight: 600;
+          padding: 0.5rem;
+          margin-bottom: 0.5rem;
+          width: 100%;
+        }
+
+        .register {
+          font-size: 13px;
+          text-align: left;
+          width: 100%;
+
+          a {
+            color: #835947;
+            font-weight: 500;
+            text-decoration: underline;
+          }
+        }
+      }
     }
   }
 }
 
 .menu {
-  padding: 0.5rem 0;
+  padding: 0.5rem 2rem;
+  background-color: white;
 
   .container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     gap: 2rem;
+    flex-wrap: wrap;
   }
 
-  app-category-dropdown button {
-    color: #ccc;
-    font-weight: 600;
-    font-size: 0.95rem;
-    background: none;
-    border: none;
-    font-family: 'Poppins', sans-serif;
+  app-category-dropdown {
+    button {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      background: none;
+      border: none;
+      color: #504D4B;
+      cursor: pointer;
 
-    &:hover {
-      color: white;
+      &:hover {
+        color: #1e63b1;
+      }
     }
 
     .category-button {
-      font-family: 'Poppins', sans-serif;
       font-weight: bold;
-      font-size: 20px;
+      font-size: 16px;
       color: #504D4B !important;
       text-transform: none;
     }
+  }
+}
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

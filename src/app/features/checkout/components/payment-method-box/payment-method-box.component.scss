@@ -1,0 +1,115 @@
+.payment-box {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 0 8px #00000010;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #504D4B;
+      margin-top: -5px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 1rem;
+
+      button {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        font-weight: 600;
+        color: #666;
+        padding: 0.4rem 1rem;
+        cursor: pointer;
+
+        .material-icons {
+          font-size: 18px;
+          display: flex;
+          align-items: center;
+          opacity: 0.85;
+        }
+
+        &.active {
+          color: #835947;
+          border-bottom-color: #835947;
+        }
+      }
+    }
+  }
+
+  .form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    p {
+      color: #999;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    input,
+    select {
+      padding: 0.6rem 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+    .row {
+      display: flex;
+      gap: 0.5rem;
+
+      select,
+      input {
+        flex: 1;
+      }
+    }
+
+    .save-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: #835947;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 0.3rem;
+
+      .confirm-btn {
+        padding: 0.6rem 2rem;
+        background-color: #835947;
+        color: white;
+        font-weight: 600;
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        &:hover {
+          background-color: #6f4835;
+        }
+      }
+    }
+    .confirm-btn.confirmado {
+      background-color: #4caf50;
+      cursor: default;
+    }
+
+  }
+}

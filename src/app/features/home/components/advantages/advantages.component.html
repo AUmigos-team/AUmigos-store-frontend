@@ -1,0 +1,9 @@
+<div class="advantages-container">
+  <div class="advantage-card" *ngFor="let item of items">
+    <mat-icon>{{ item.icon }}</mat-icon>
+    <div class="text">
+      <span>{{ item.title }}</span>
+      <a href="{{ item.link }}">saiba mais</a>
+    </div>
+  </div>
+</div>

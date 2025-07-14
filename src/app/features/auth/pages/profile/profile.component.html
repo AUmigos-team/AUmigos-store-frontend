@@ -1,0 +1,7 @@
+<app-auth-form
+  title="Atualize seus dados"
+  *ngIf="user"
+  [mode]="'edit'"
+  [userData]="user"
+  (submitForm)="onUpdate($event)">
+</app-auth-form>

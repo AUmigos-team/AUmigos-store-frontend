@@ -1,4 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+::ng-deep .mat-dialog-container.custom-dialog {
+  border-radius: 16px;
+  padding: 2rem !important;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.2);
+  max-width: 560px;
+  width: 100%;
+  overflow: visible;
+}

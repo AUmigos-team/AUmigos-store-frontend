@@ -1,0 +1,30 @@
+<div class="box">
+  <h3>Resumo do Pedido</h3>
+
+  <div class="summary-grid">
+    <div class="info">
+      <div>
+        <strong>Endereço</strong>
+        <p>{{ endereco || 'Nenhum endereço selecionado' }}</p>
+      </div>
+      <div>
+        <strong>Pagamento</strong>
+        <p>{{ pagamento || 'Nenhum método selecionado' }}</p>
+      </div>
+    </div>
+
+    <div class="totals">
+      <p>Subtotal <span>R${{ subtotal | number: '1.2-2' }}</span></p>
+      <p>Frete <span>Grátis</span></p>
+      <hr />
+      <p class="total">Total <span>R${{ subtotal | number: '1.2-2' }}</span></p>
+    </div>
+  </div>
+
+  <button
+    class="submit-btn"
+    (click)="onClickFazerPedido()"
+    [disabled]="!endereco || !pagamento || cartItems.length === 0">
+    Fazer o pedido
+  </button>
+</div>

@@ -1,30 +1,78 @@
 <nav class="navbar">
   <div class="container">
-    <img
-      ngSrc="assets/logo-aumigos.png"
-      alt="Logo AUmigos"
-      width="169"
-      height="39"
-      class="logo"
-    />
+    <a routerLink="/" class="logo-link">
+      <img src="assets/logo-aumigos.png" alt="AUmigos Logo" class="logo" />
+    </a>
 
-    <input class="search" placeholder="O que seu pet precisa?" />
+    <form (submit)="onSearch()" class="search-wrapper">
+      <input
+        class="search"
+        type="text"
+        placeholder="O que seu pet precisa?"
+        [formControl]="searchControl"
+        (keyup.enter)="onSearch()"
+      />
+      <button type="submit" class="search-icon">
+        <mat-icon>search</mat-icon>
+      </button>
+    </form>
 
     <div class="icons">
-      <button mat-icon-button><mat-icon>shopping_cart</mat-icon></button>
-      <button mat-icon-button><mat-icon>person</mat-icon></button>
+      <button mat-icon-button (click)="cartOpen = true">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+      <div class="profile-wrapper"
+           (mouseenter)="onMouseEnter()"
+           (mouseleave)="onMouseLeave()">
+        <div class="profile-button">
+          <ng-container *ngIf="userProfilePicture; else defaultIcon">
+            <img [src]="userProfilePicture" class="avatar-img" alt="Foto de perfil">
+          </ng-container>
+          <ng-template #defaultIcon>
+            <mat-icon>person</mat-icon>
+          </ng-template>
+
+          <div class="text">
+            <ng-container *ngIf="isLoggedIn; else loggedOut">
+              <span class="entrar">Olá, {{ userName }}</span>
+            </ng-container>
+            <ng-template #loggedOut>
+              <span class="entrar">Entrar</span>
+              <span class="cadastro">Cadastre-se</span>
+            </ng-template>
+          </div>
+        </div>
+
+
+        <div class="dropdown-menu" *ngIf="dropdownOpen">
+          <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+            <a routerLink="/meus-pedidos">Meus pedidos</a>
+            <a routerLink="/meus-dados">Meus Dados</a>
+            <a class="logout" (click)="logout()">Sair</a>
+          </ng-container>
+          <ng-template #notLoggedIn>
+            <button routerLink="/login" class="primary">Entrar</button>
+            <p class="register">Não tem cadastro? <a routerLink="/register">Criar conta</a></p>
+          </ng-template>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
-
 <div class="menu">
-  <div class="container">
-    <app-category-dropdown
-      *ngFor="let category of categories"
-      [name]="category.name"
-      [subcategories]="category.subcategories || []"
-      [highlightColor]="category.color || '#ccc'">
-    </app-category-dropdown>
-
-  </div>
+    <div class="container">
+      <app-category-dropdown
+        *ngFor="let category of categories"
+        [name]="category.name"
+        [subcategories]="category.subcategories || []"
+        [highlightColor]="category.color || '#ccc'">
+      </app-category-dropdown>
+    </div>
 </div>
+
+<app-cart
+  *ngIf="cartOpen"
+  (close)="cartOpen = false"
+  (checkout)="onCheckout()">
+</app-cart>
+

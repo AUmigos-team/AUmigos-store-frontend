@@ -1,0 +1,15 @@
+<div class="product-list-page container">
+  <app-breadcrumb
+    [busca]="busca"
+    [categoria]="categoriaSlug ? { name: categoriaLabel, slug: categoriaSlug } : undefined"
+    [subcategoria]="subcategoriaSlug ? { name: subcategoriaLabel, slug: subcategoriaSlug } : undefined">
+  </app-breadcrumb>
+
+  <h1 class="page-title">{{ tituloPagina }}</h1>
+
+  <div class="grid">
+    <div *ngFor="let produto of produtos">
+      <app-product-card [product]="produto" (addToCart)="onAddToCart($event)"></app-product-card>
+    </div>
+  </div>
+</div>
