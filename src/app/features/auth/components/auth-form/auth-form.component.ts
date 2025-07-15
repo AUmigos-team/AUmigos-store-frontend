@@ -1,30 +1,38 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ValidatorFn,
+  AbstractControl,
+  ReactiveFormsModule
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { UserAuth } from '../../../../core/interfaces/user-auth';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {NgxMaskDirective, NgxMaskPipe} from 'ngx-mask';
 
 @Component({
   selector: 'app-auth-form',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxMaskDirective,
   ],
   templateUrl: './auth-form.component.html',
-  styleUrl: './auth-form.component.scss'
+  styleUrls: ['./auth-form.component.scss']
 })
 export class AuthFormComponent implements OnInit {
-  @Input() mode: 'login' | 'register' | 'edit' = 'register';
+  @Input() mode: 'register' | 'login' | 'edit' = 'register';
   @Input() title: string = '';
   @Input() userData?: UserAuth;
   @Output() submitForm = new EventEmitter<any>();
@@ -33,6 +41,7 @@ export class AuthFormComponent implements OnInit {
   hidePassword = true;
   previewUrl: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
+  serverError: string | null = null;
 
   days = Array.from({ length: 31 }, (_, i) => i + 1);
   months = [
@@ -59,10 +68,10 @@ export class AuthFormComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required],
-      password: [''],
-      confirmPassword: [''],
-      cpf: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.minLength(10)]],
+      cpf: ['', [Validators.required, Validators.minLength(11)]],
+      password: ['', []],
+      confirmPassword: ['', []],
       birthDay: ['', Validators.required],
       birthMonth: ['', Validators.required],
       birthYear: ['', Validators.required],
@@ -83,6 +92,9 @@ export class AuthFormComponent implements OnInit {
         birthMonth: month,
         birthDay: day
       });
+
+      this.form.markAsPristine();
+
       this.previewUrl = this.userData.profilePicture
         ? 'data:image/jpeg;base64,' + this.userData.profilePicture
         : null;
@@ -90,12 +102,20 @@ export class AuthFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (!this.form.valid) {
+    if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
     const value = this.form.value;
+
+    if (this.mode === 'login') {
+      this.submitForm.emit({
+        email: value.email,
+        password: value.password
+      });
+      return;
+    }
 
     const day = value.birthDay?.toString().padStart(2, '0') ?? '';
     const month = value.birthMonth?.toString().padStart(2, '0') ?? '';
@@ -110,7 +130,7 @@ export class AuthFormComponent implements OnInit {
     formData.append('birthDate', birthDate);
     formData.append('gender', value.gender);
 
-    if (this.mode === 'register') {
+    if (value.password?.trim()) {
       formData.append('password', value.password);
     }
 
@@ -118,14 +138,7 @@ export class AuthFormComponent implements OnInit {
       formData.append('profilePicture', this.selectedFile);
     }
 
-    if (this.mode === 'login') {
-      this.submitForm.emit({
-        email: value.email,
-        password: value.password
-      });
-    } else {
-      this.submitForm.emit(formData);
-    }
+    this.submitForm.emit(formData);
   }
 
   onFileSelected(event: Event): void {
@@ -146,4 +159,16 @@ export class AuthFormComponent implements OnInit {
     const confirmPassword = group.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordsMismatch: true };
   };
+
+  isInvalid(control: string): boolean {
+    return (this.form.get(control)?.invalid && this.form.get(control)?.touched) ?? false;
+  }
+
+  hasError(control: string, error: string): boolean {
+    return (this.form.get(control)?.hasError(error) && this.form.get(control)?.touched) ?? false;
+  }
+
+  setServerError(message: string) {
+    this.serverError = message;
+  }
 }

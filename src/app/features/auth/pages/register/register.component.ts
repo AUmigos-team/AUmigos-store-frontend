@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { AuthService } from '../../../../core/services/auth-service.service';
 import { Router } from '@angular/router';
 import { UserAuth } from '../../../../core/interfaces/user-auth';
@@ -12,6 +12,8 @@ import { AuthFormComponent } from '../../components/auth-form/auth-form.componen
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+  @ViewChild(AuthFormComponent) authFormComponent?: AuthFormComponent;
+
   constructor(private authService: AuthService, private router: Router) {}
 
   onRegister(data: Partial<UserAuth> | FormData) {
@@ -22,7 +24,8 @@ export class RegisterComponent {
     request$.subscribe({
       next: () => this.router.navigate(['/login']),
       error: (err) => {
-        alert('Erro ao criar conta.');
+        const errorMessage = err?.error?.message || 'Erro ao criar conta.';
+        this.authFormComponent?.setServerError(errorMessage);
       }
     });
   }
