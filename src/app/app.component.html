@@ -1,4 +1,5 @@
 <app-navbar *ngIf="showNavbar" />
+<app-loader *ngIf="isLoading"></app-loader>
 <app-auth-header *ngIf="!showNavbar" />
 <router-outlet></router-outlet>
 <app-footer></app-footer>
