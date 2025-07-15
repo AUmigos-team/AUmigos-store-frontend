@@ -2,43 +2,102 @@
   background: #fff;
   text-align: center;
   padding: 2rem 1rem;
+  margin: 100px 0;
 
-  h2 {
-    font-size: 1.2rem;
+  .newsletter-title {
+    text-align: center;
+    margin-bottom: 1.8rem;
+    font-size: 1.8rem;
     color: #3b1e16;
     font-weight: 700;
-    margin-bottom: 1.5rem;
   }
 
   .newsletter-form {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     gap: 1rem;
 
-    input,
-    select {
+    input[type='email'],
+    .dropdown-label,
+    button {
+      height: 48px;
+      box-sizing: border-box;
+    }
+
+    input[type='email'] {
       padding: 0.75rem 1rem;
       border: none;
       border-radius: 8px;
       background: #f0f0f0;
       font-size: 1rem;
-      min-width: 200px;
+      min-width: 220px;
+    }
+
+    .dropdown-multiselect {
+      position: relative;
+      min-width: 220px;
+
+      .dropdown-label {
+        background: #f0f0f0;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: none;
+        box-sizing: border-box;
+      }
+
+      .dropdown-options {
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        right: 0;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 0.5rem;
+        list-style: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+
+        li {
+          margin-bottom: 0.25rem;
+
+          label {
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+
+            input {
+              margin-right: 0.5rem;
+            }
+          }
+        }
+      }
     }
 
     button {
       background-color: #3b1e16;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
+      color: white;
       padding: 0.75rem 1.5rem;
-      font-size: 1rem;
+      border-radius: 8px;
       font-weight: bold;
+      border: none;
       cursor: pointer;
       transition: background-color 0.2s;
 
-      &:hover {
+      &:hover:not(:disabled) {
         background-color: #5a2a21;
+      }
+
+      &:disabled {
+        background-color: #999;
+        cursor: not-allowed;
       }
     }
   }

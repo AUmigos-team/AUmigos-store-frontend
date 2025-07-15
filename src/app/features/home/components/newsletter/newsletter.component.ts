@@ -10,15 +10,28 @@ import {FormsModule} from '@angular/forms';
   imports: [CommonModule, FormsModule]
 })
 export class NewsletterComponent {
-  email = '';
-  petType = '';
+  email: string = '';
+  petTypes: string[] = [];
+
+  petOptions = ['Cachorro', 'Gato', 'Peixe', 'Pássaro'];
+  selectedPets: string[] = [];
+  dropdownOpen = false;
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  onPetToggle(pet: string, event: Event) {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if (isChecked) {
+      this.selectedPets.push(pet);
+    } else {
+      this.selectedPets = this.selectedPets.filter(p => p !== pet);
+    }
+  }
 
   submitForm() {
-    if (this.email && this.petType) {
-      console.log('Enviado:', this.email, this.petType);
-      alert('Cadastro realizado com sucesso!');
-      this.email = '';
-      this.petType = '';
-    }
+    console.log('Email:', this.email);
+    console.log('Pets selecionados:', this.petTypes);
   }
 }
