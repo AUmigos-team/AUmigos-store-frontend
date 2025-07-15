@@ -31,7 +31,7 @@ export class OrdersComponent implements OnInit {
       error: (err: any) => console.error('Erro ao buscar pedidos', err)
     });
   }
-  
+
   handleComprarNovamente(items: any[]) {
     const produtos = items.map(item => ({
       productId: item.product.id,

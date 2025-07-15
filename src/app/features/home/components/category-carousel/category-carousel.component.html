@@ -9,8 +9,7 @@
         class="carousel-item"
         *ngFor="let item of items.slice(currentIndex, currentIndex + 4)"
         (click)="navigateToSubcategory(item.label)"
-        style="cursor: pointer;"
-      >
+        style="cursor: pointer;">
         <div class="circle">
           <img [src]="'/assets/' + item.image" alt="{{ item.label }}" />
         </div>

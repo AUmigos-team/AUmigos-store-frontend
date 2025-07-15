@@ -1,25 +1,25 @@
 .carousel-container {
   text-align: center;
   margin-top: 20px;
-  padding: 2rem 1rem;
+  padding: 3rem 1rem;
 
   h2 {
     margin-bottom: 3.5rem;
     font-weight: 600;
     color: #504D4B;
-
   }
 
   .carousel-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 2rem;
+    padding: 0 1rem;
   }
 
   .carousel {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
     overflow: hidden;
   }
 
@@ -27,49 +27,61 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 120px;
+    width: 160px;
 
     .circle {
-      background: #f3f3f3;
+      background: #f8f8f8;
       border-radius: 50%;
-      width: 100px;
-      height: 100px;
+      width: 130px;
+      height: 130px;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 
       img {
-        max-width: 80%;
-        max-height: 80%;
+        max-width: 90%;
+        max-height: 90%;
       }
     }
 
     p {
+      margin-top: 0.75rem;
+      font-size: 14px;
+      font-weight: 600;
+      color: #504D4B;
+      text-align: center;
+      line-height: 1.2;
+    }
+  }
+
+  p {
       margin-top: 1rem;
-      font-size: 13px;
-      color: #835947;
-      font-weight: 700;
+      font-size: 14px;
+      font-weight: 600;
+      color: #504D4B;
     }
   }
 
   .nav {
-    border: none;
-    background: #fff;
-    font-size: 1.5rem;
-    cursor: pointer;
-    border-radius: 50%;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    width: 32px;
-    height: 32px;
-    display: flex;
-    color: #835947;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s;
+      background: white;
+      border: none;
+      font-size: 24px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      color: #835947;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s;
 
-    &:hover {
-      transform: scale(1.1);
+      &:hover {
+        transform: scale(1.1);
+        background-color: #f0e6df;
+      }
     }
-  }
-}
+
+
