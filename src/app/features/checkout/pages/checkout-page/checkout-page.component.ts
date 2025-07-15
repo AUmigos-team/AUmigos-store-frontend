@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../../../core/services/cart.service';
 import { CartItem } from '../../../../core/interfaces/cart/cart-item';
@@ -8,10 +8,10 @@ import { MoreItemsButtonComponent } from '../../components/more-items-button/mor
 import {
   OrderSumaryBoxComponent,
 } from '../../components/order-sumary-box/order-sumary-box.component';
-import {CartItemComponent} from '../../../cart/components/cart-item/cart-item.component';
-import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
-import {OrderConfirmationComponent} from '../../../../shared/components/order-confirmation.component';
+import { CartItemComponent } from '../../../cart/components/cart-item/cart-item.component';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { OrderConfirmationComponent } from '../../../../shared/components/order-confirmation.component';
 
 @Component({
   selector: 'app-checkout-page',
@@ -35,29 +35,42 @@ export class CheckoutPageComponent implements OnInit {
   exibirConfirmacao = false;
 
   subtotal: number = 0;
-
   public metodoPagamentoSelecionado: string | null = null;
-
 
   constructor(
     private cartService: CartService,
     private http: HttpClient,
     private router: Router
-    ) {}
-
+  ) {}
 
   ngOnInit(): void {
     this.loadCartItems();
 
-    const metodoSalvo = localStorage.getItem('metodoPagamentoSelecionado');
-    if (metodoSalvo) {
-      this.metodoPagamentoSelecionado = metodoSalvo;
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user?.id) {
+      const metodoSalvo = localStorage.getItem(`checkout_payment_user${user.id}`);
+      const enderecoSalvo = localStorage.getItem(`checkout_address_user${user.id}`);
+
+      if (metodoSalvo) {
+        this.metodoPagamentoSelecionado = metodoSalvo;
+        localStorage.setItem('metodoPagamentoSelecionado', metodoSalvo);
+      }
+
+      if (enderecoSalvo) {
+        localStorage.setItem('enderecoSalvo', enderecoSalvo);
+      }
     }
   }
 
   onMetodoSelecionado(metodo: string) {
     this.metodoPagamentoSelecionado = metodo;
     this.pagamentoSelecionado = metodo;
+
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user?.id) {
+      localStorage.setItem(`checkout_payment_user${user.id}`, metodo);
+      localStorage.setItem('metodoPagamentoSelecionado', metodo);
+    }
   }
 
   finalizarPedido() {
@@ -98,12 +111,12 @@ export class CheckoutPageComponent implements OnInit {
 
   getPaymentMethodId(metodo: string): number {
     switch (metodo.toLowerCase()) {
-      case 'Cartão':
-      case 'Cartao':
+      case 'cartão':
+      case 'cartao':
         return 1;
-      case 'Pix':
+      case 'pix':
         return 2;
-      case 'Boleto':
+      case 'boleto':
         return 3;
       default:
         return 1;
@@ -122,6 +135,6 @@ export class CheckoutPageComponent implements OnInit {
   }
 
   navegarParaPedidos() {
-    this.router.navigate(['/meus-pedidos']); // ou qualquer outra rota de acompanhamento
+    this.router.navigate(['/meus-pedidos']);
   }
 }

@@ -36,6 +36,8 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user');
+    localStorage.removeItem('enderecoSalvo');
+    localStorage.removeItem('metodoPagamentoSelecionado');
     this.isLoggedInSubject.next(false);
     this.userSubject.next(null);
   }

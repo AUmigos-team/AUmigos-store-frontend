@@ -50,10 +50,14 @@ export class DeliveryAddressBoxComponent implements OnInit {
 
         this.enderecoTexto = `${enderecoResult.rua}, ${enderecoResult.numero} - ${enderecoResult.bairro}, ${enderecoResult.cidade} - ${enderecoResult.estado}`;
 
-        localStorage.setItem('enderecoSalvo', JSON.stringify(enderecoResult));
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user?.id) {
+          localStorage.setItem(`checkout_address_user${user.id}`, JSON.stringify(enderecoResult));
+          localStorage.setItem('enderecoSalvo', JSON.stringify(enderecoResult));
+        }
+
+        this.enderecoSelecionado.emit(this.enderecoTexto);
       }
     });
-
   }
-
 }

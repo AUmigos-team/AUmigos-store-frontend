@@ -16,15 +16,19 @@ export class PaymentMethodBoxComponent implements OnInit {
   public pagamentoFoiConfirmado = false;
 
   ngOnInit(): void {
-    const metodoSalvo = localStorage.getItem('metodoPagamentoSelecionado');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    let metodoSalvo: string | null = null;
+
+    if (user?.id) {
+      metodoSalvo = localStorage.getItem(`checkout_payment_user${user.id}`);
+    }
+
     if (metodoSalvo && this.metodos.includes(metodoSalvo)) {
       this.metodoSelecionado = metodoSalvo;
       this.pagamentoFoiConfirmado = true;
-
-      this.pagamentoConfirmado.emit(metodoSalvo);
+      this.pagamentoConfirmado.emit(this.getLabel(metodoSalvo));
     }
   }
-
 
   selecionarMetodo(metodo: string) {
     this.metodoSelecionado = metodo;
@@ -60,10 +64,12 @@ export class PaymentMethodBoxComponent implements OnInit {
   confirmarPagamento() {
     this.pagamentoFoiConfirmado = true;
 
-    localStorage.setItem('metodoPagamentoSelecionado', this.metodoSelecionado);
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user?.id) {
+      localStorage.setItem(`checkout_payment_user${user.id}`, this.metodoSelecionado);
+      localStorage.setItem('metodoPagamentoSelecionado', this.metodoSelecionado);
+    }
 
     this.pagamentoConfirmado.emit(this.getLabel(this.metodoSelecionado));
   }
-
-
 }
