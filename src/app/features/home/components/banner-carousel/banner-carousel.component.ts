@@ -12,8 +12,10 @@ export class BannerCarouselComponent {
 
   banners = [
     {image: 'assets/banners/carrosel-1.png'},
-    {image: 'assets/banners/carrosel-2.png'},
+    {image: 'assets/banners/carrossel-2.png'},
     {image: 'assets/banners/carrosel-3.png'},
+    {image: 'assets/banners/carrossel-4.png'},
+    {image: 'assets/banners/carrossel-5.png'},
   ];
 
   activeIndex = 0;
@@ -45,5 +47,9 @@ export class BannerCarouselComponent {
   nextSlide(): void {
     this.activeIndex = this.nextIndex;
     this.updateIndexes();
+  }
+
+  goToSlide(index: number): void {
+    this.activeIndex = index;
   }
 }
