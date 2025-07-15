@@ -43,9 +43,13 @@
       color: #504D4B;
     }
 
-    a {
+    button {
       font-size: 0.75rem;
       color: #666;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
       text-decoration: underline;
       transition: color 0.2s;
 

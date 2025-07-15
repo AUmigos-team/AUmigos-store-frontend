@@ -1,0 +1,28 @@
+.modal-content {
+  padding: 1rem;
+  border-radius: 2rem;
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #8a5a44;
+  }
+
+  .description {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 2rem;
+  }
+
+  .modal-actions {
+    text-align: right;
+
+    button {
+      font-weight: 500;
+      border-radius: 6px;
+      padding: 0.5rem 1.2rem;
+      color: #8a5a44;
+    }
+  }
+}

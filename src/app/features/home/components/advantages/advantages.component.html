@@ -3,7 +3,7 @@
     <mat-icon>{{ item.icon }}</mat-icon>
     <div class="text">
       <span>{{ item.title }}</span>
-      <a href="{{ item.link }}">saiba mais</a>
+      <button type="button" (click)="openModal(item)">saiba mais</button>
     </div>
   </div>
 </div>
