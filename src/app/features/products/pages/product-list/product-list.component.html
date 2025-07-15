@@ -12,4 +12,11 @@
       <app-product-card [product]="produto" (addToCart)="onAddToCart($event)"></app-product-card>
     </div>
   </div>
+  <div class="pagination">
+    <button (click)="previousPage()" [disabled]="page === 0">Anterior</button>
+
+    <span>Página {{ page + 1 }} de {{ totalPages }}</span>
+
+    <button (click)="nextPage()" [disabled]="page >= totalPages - 1">Próxima</button>
+  </div>
 </div>

@@ -25,6 +25,9 @@ export class ProductListComponent implements OnInit {
   categoriaLabel = '';
   subcategoriaLabel = '';
 
+  page = 0;
+  totalPages = 0;
+
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -48,7 +51,7 @@ export class ProductListComponent implements OnInit {
       this.categoriaLabel = this.getNomeCategoria(categoria);
       this.subcategoriaLabel = this.formatarNome(subcategoria);
 
-      this.fetchProducts(categoria, subcategoria, search);
+      this.fetchProducts(categoria, subcategoria, search, 0);
     });
   }
 
@@ -58,9 +61,9 @@ export class ProductListComponent implements OnInit {
       .replace(/\b\w/g, letra => letra.toUpperCase());
   }
 
-  fetchProducts(categoria: string, subcategoria: string, search: string) {
+  fetchProducts(categoria: string, subcategoria: string, search: string, page: number = 0) {
     const url = '/api/products';
-    const params: any = { page: 0, size: 10 };
+    const params: any = { page, size: 12 };
 
     if (categoria) params.category = categoria;
     if (subcategoria) params.subcategory = subcategoria;
@@ -69,6 +72,8 @@ export class ProductListComponent implements OnInit {
     this.http.get(url, { params }).subscribe({
       next: (res: any) => {
         this.produtos = res.content;
+        this.page = res.number;
+        this.totalPages = res.totalPages;
 
         if (res.content.length > 0) {
           if (search) {
@@ -86,10 +91,22 @@ export class ProductListComponent implements OnInit {
             : 'Nenhum produto encontrado';
         }
       },
-      error: err => {
+      error: () => {
         this.tituloPagina = 'Erro ao carregar produtos';
       }
     });
+  }
+
+  nextPage() {
+    if (this.page < this.totalPages - 1) {
+      this.fetchProducts(this.categoriaSlug, this.subcategoriaSlug, this.busca, this.page + 1);
+    }
+  }
+
+  previousPage() {
+    if (this.page > 0) {
+      this.fetchProducts(this.categoriaSlug, this.subcategoriaSlug, this.busca, this.page - 1);
+    }
   }
 
   onAddToCart(productId: number) {

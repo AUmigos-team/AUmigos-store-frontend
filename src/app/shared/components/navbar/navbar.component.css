@@ -61,6 +61,7 @@ body {
       border: none;
       color: #504D4B;
       cursor: pointer;
+      margin-top: 5px;
 
       mat-icon {
         font-size: 22px;

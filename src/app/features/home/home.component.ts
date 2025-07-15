@@ -10,6 +10,8 @@ import { Category } from '../../core/interfaces/category';
 import {CategoryCarouselComponent} from './components/category-carousel/category-carousel.component';
 import {CartService} from '../../core/services/cart.service';
 import {CartSidebarService} from '../../core/services/cart-side-bar.service';
+import {NewsletterComponent} from './components/newsletter/newsletter.component';
+import {BrandShowcaseComponent} from './components/brand/brand.component';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +21,9 @@ import {CartSidebarService} from '../../core/services/cart-side-bar.service';
     AdvantagesComponent,
     BannerCarouselComponent,
     ProductCardComponent,
-    CategoryCarouselComponent
+    CategoryCarouselComponent,
+    NewsletterComponent,
+    BrandShowcaseComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']

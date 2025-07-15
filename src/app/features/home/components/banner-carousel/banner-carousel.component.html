@@ -1,13 +1,18 @@
-<div class="carousel-wrapper">
-  <div class="carousel">
-    <img *ngIf="showSideBanners" class="banner left" [src]="banners[prevIndex].image" alt="Previous Banner" />
+<div class="carousel-container">
+  <button class="nav-button left" (click)="prevSlide()">❮</button>
 
-    <div class="center-wrapper">
-      <button class="nav-button left" (click)="prevSlide()">❮</button>
-      <img class="banner center" [src]="banners[activeIndex].image" alt="Current Banner" />
-      <button class="nav-button right" (click)="nextSlide()">❯</button>
-    </div>
-
-    <img *ngIf="showSideBanners" class="banner right" [src]="banners[nextIndex].image" alt="Next Banner" />
+  <div
+    class="carousel-banner"
+    [ngStyle]="{ 'background-image': 'url(' + banners[activeIndex].image + ')' }">
   </div>
+
+  <button class="nav-button right" (click)="nextSlide()">❯</button>
+</div>
+
+<div class="carousel-indicators">
+  <span
+    *ngFor="let banner of banners; let i = index"
+    [class.active]="i === activeIndex"
+    (click)="goToSlide(i)"
+  ></span>
 </div>

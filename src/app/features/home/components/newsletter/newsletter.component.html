@@ -1,0 +1,40 @@
+<div class="newsletter-container">
+  <h2 class="newsletter-title">
+    Cadastre-se e fique sabendo das ofertas antes de todos!
+  </h2>
+  <div class="message success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <form class="newsletter-form" (ngSubmit)="submitForm()" #form="ngForm">
+    <input
+      type="email"
+      placeholder="seu@email.com"
+      [(ngModel)]="email"
+      name="email"
+      required
+    />
+
+    <div class="dropdown-multiselect">
+      <div class="dropdown-label" (click)="toggleDropdown()">
+        {{ selectedPets.length ? selectedPets.join(', ') : 'Selecione seus pets' }}
+        <span class="arrow">&#9662;</span>
+      </div>
+
+      <ul *ngIf="dropdownOpen" class="dropdown-options">
+        <li *ngFor="let pet of petOptions">
+          <label>
+            <input
+              type="checkbox"
+              [value]="pet"
+              (change)="onPetToggle(pet, $event)"
+              [checked]="selectedPets.includes(pet)"
+            />
+            {{ pet }}
+          </label>
+        </li>
+      </ul>
+    </div>
+
+    <button type="submit" [disabled]="!email || selectedPets.length === 0">Cadastrar</button>
+  </form>
+</div>
