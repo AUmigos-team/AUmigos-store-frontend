@@ -97,4 +97,9 @@ export class NavbarComponent implements OnInit {
     this.cartOpen = false;
     this.router.navigate(['/checkout']);
   }
+
+  get hasProfilePicture(): boolean {
+    return !!this.userProfilePicture && this.userProfilePicture.trim() !== '';
+  }
+
 }
