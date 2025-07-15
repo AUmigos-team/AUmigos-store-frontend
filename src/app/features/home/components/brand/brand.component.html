@@ -1,0 +1,8 @@
+<div class="brand-section">
+  <h2 class="title">Nossas Marcas Favoritas</h2>
+  <div class="brand-list">
+    <div class="brand-card" *ngFor="let brand of brands">
+      <img [src]="brand.imageUrl" [alt]="brand.name" />
+    </div>
+  </div>
+</div>
