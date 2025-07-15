@@ -2,6 +2,8 @@
   <h2 class="newsletter-title">
     Cadastre-se e fique sabendo das ofertas antes de todos!
   </h2>
+  <div class="message success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
 
   <form class="newsletter-form" (ngSubmit)="submitForm()" #form="ngForm">
     <input
