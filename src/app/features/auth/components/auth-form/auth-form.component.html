@@ -15,28 +15,39 @@
       </label>
     </div>
   </div>
-
-  <ng-content></ng-content>
-
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="server-error" *ngIf="serverError">
+      {{ serverError }}
+    </div>
     <label *ngIf="mode !== 'login'">
       <span>Nome completo*</span>
-      <input type="text" formControlName="name" />
+      <input formControlName="name" [class.invalid]="isInvalid('name')" />
+      <div class="error-message" *ngIf="hasError('name', 'required')">Nome é obrigatório.</div>
     </label>
 
     <label>
       <span>E-mail*</span>
-      <input type="email" formControlName="email" />
+      <input type="email" formControlName="email" [class.invalid]="isInvalid('email')" />
+      <div class="error-message" *ngIf="hasError('email', 'required')">E-mail é obrigatório.</div>
+      <div class="error-message" *ngIf="hasError('email', 'email')">E-mail inválido.</div>
     </label>
 
     <label *ngIf="mode !== 'login'">
-      <span>Telefone*</span>
-      <input type="text" formControlName="phone" />
+      <span>Celular*</span>
+      <input formControlName="phone" mask="(00) 00000-0000" [class.invalid]="isInvalid('phone')" />
+      <div class="error-message" *ngIf="hasError('phone', 'required')">Celular é obrigatório.</div>
+      <div class="error-message" *ngIf="hasError('phone', 'minlength')">
+        Celular incompleto.
+      </div>
     </label>
 
     <label *ngIf="mode !== 'login'">
       <span>CPF*</span>
-      <input type="text" formControlName="cpf" />
+      <input formControlName="cpf" mask="000.000.000-00" [class.invalid]="isInvalid('cpf')" />
+      <div class="error-message" *ngIf="hasError('cpf', 'required')">CPF é obrigatório.</div>
+      <div class="error-message" *ngIf="hasError('cpf', 'minlength')">
+        CPF incompleto.
+      </div>
     </label>
 
     <div *ngIf="mode !== 'login'" class="birthdate-row">
@@ -74,20 +85,29 @@
 
     <label *ngIf="mode === 'login' || mode === 'register'">
       <span>Senha*</span>
-      <input [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+      <input [type]="hidePassword ? 'password' : 'text'" formControlName="password" [class.invalid]="isInvalid('password')" />
+      <div class="error-message" *ngIf="hasError('password', 'required')">Senha é obrigatória.</div>
+      <div class="error-message" *ngIf="hasError('password', 'minlength')">Mínimo 6 caracteres.</div>
     </label>
 
     <label *ngIf="mode === 'register'">
       <span>Confirmar senha*</span>
-      <input [type]="hidePassword ? 'password' : 'text'" formControlName="confirmPassword" />
+      <input [type]="hidePassword ? 'password' : 'text'" formControlName="confirmPassword" [class.invalid]="isInvalid('confirmPassword')" />
+      <div class="error-message" *ngIf="form.hasError('passwordsMismatch') && form.get('confirmPassword')?.touched">
+        As senhas não coincidem.
+      </div>
     </label>
 
-    <button type="submit" class="submit-btn">
+    <button
+      type="submit"
+      class="submit-btn"
+      [disabled]="form.invalid || (mode === 'edit' && !form.dirty)">
       {{ mode === 'login' ? 'Entrar' : mode === 'register' ? 'Criar conta' : 'Salvar' }}
     </button>
   </form>
 
   <p class="terms">
-    Ao acessar você está de acordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>.
+    Ao acessar você está de acordo com os
+    <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>.
   </p>
 </div>

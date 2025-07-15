@@ -25,9 +25,16 @@
            (mouseenter)="onMouseEnter()"
            (mouseleave)="onMouseLeave()">
         <div class="profile-button">
-          <ng-container *ngIf="userProfilePicture; else defaultIcon">
-            <img [src]="userProfilePicture" class="avatar-img" alt="Foto de perfil">
+          <ng-container *ngIf="hasProfilePicture; else defaultIcon">
+            <img
+              [src]="userProfilePicture"
+              (error)="userProfilePicture = ''"
+              class="avatar-img"
+              alt="Foto de perfil"/>
           </ng-container>
+          <ng-template #defaultIcon>
+            <mat-icon>person</mat-icon>
+          </ng-template>
           <ng-template #defaultIcon>
             <mat-icon>person</mat-icon>
           </ng-template>

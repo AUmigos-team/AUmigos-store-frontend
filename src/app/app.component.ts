@@ -52,7 +52,7 @@ export class AppComponent {
         event instanceof NavigationCancel ||
         event instanceof NavigationError
       ) {
-        setTimeout(() => this.loaderService.hide(), 200);
+        setTimeout(() => this.loaderService.hide(), 300);
       }
     });
   }
