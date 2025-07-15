@@ -1,0 +1,23 @@
+<div class="newsletter-container">
+  <h2>Cadastre-se e fique sabendo das ofertas antes de todos!</h2>
+
+  <form class="newsletter-form" (ngSubmit)="submitForm()">
+    <input
+      type="email"
+      placeholder="seu@email.com"
+      [(ngModel)]="email"
+      name="email"
+      required
+    />
+
+    <select [(ngModel)]="petType" name="petType" required>
+      <option value="" disabled selected>qual seu pet?</option>
+      <option value="cachorro">Cachorro</option>
+      <option value="gato">Gato</option>
+      <option value="peixe">Peixe</option>
+      <option value="pássaro">Pássaro</option>
+    </select>
+
+    <button type="submit">Cadastrar</button>
+  </form>
+</div>

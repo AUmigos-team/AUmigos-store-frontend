@@ -1,0 +1,45 @@
+.newsletter-container {
+  background: #fff;
+  text-align: center;
+  padding: 2rem 1rem;
+
+  h2 {
+    font-size: 1.2rem;
+    color: #3b1e16;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  .newsletter-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+
+    input,
+    select {
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 8px;
+      background: #f0f0f0;
+      font-size: 1rem;
+      min-width: 200px;
+    }
+
+    button {
+      background-color: #3b1e16;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #5a2a21;
+      }
+    }
+  }
+}
