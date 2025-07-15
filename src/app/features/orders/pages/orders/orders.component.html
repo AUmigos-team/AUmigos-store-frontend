@@ -1,6 +1,21 @@
-
 <div class="orders-container">
-  <h2 class="title">Meus Pedidos</h2>
+  <div class="header-row">
+    <h2 class="title">Meus Pedidos</h2>
+
+    <div class="pagination" *ngIf="totalPaginas > 1">
+      <button (click)="irParaPagina(paginaAtual - 1)" [disabled]="paginaAtual === 0">‹</button>
+
+      <ng-container *ngFor="let page of [].constructor(totalPaginas); let i = index">
+        <button
+          (click)="irParaPagina(i)"
+          [class.active]="i === paginaAtual">
+          {{ i + 1 }}
+        </button>
+      </ng-container>
+
+      <button (click)="irParaPagina(paginaAtual + 1)" [disabled]="paginaAtual + 1 === totalPaginas">›</button>
+    </div>
+  </div>
 
   <div class="filters">
     <button [class.active]="!statusSelecionado" (click)="filtrarPorStatus(null)">Tudo</button>

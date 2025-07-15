@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { OrderCardComponent } from '../../components/order-card/order-card.component';
 import { Order } from '../../../../core/interfaces/order';
 import { HttpClient } from '@angular/common/http';
-import {CartService} from '../../../../core/services/cart.service';
-import {CartSidebarService} from '../../../../core/services/cart-side-bar.service';
-import {concatMap, from} from 'rxjs';
+import { CartService } from '../../../../core/services/cart.service';
+import { CartSidebarService } from '../../../../core/services/cart-side-bar.service';
+import { concatMap, from } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
@@ -17,6 +17,10 @@ import {concatMap, from} from 'rxjs';
 export class OrdersComponent implements OnInit {
   pedidos: Order[] = [];
   statusSelecionado: string | null = null;
+  paginaAtual = 0;
+  totalPaginas = 0;
+  tamanhoPagina = 3;
+
   constructor(
     private http: HttpClient,
     private cartService: CartService,
@@ -24,30 +28,19 @@ export class OrdersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.http.get<any>('/api/order?page=0&size=5').subscribe({
-      next: (res: any) => {
-        this.pedidos = res.content || res;
-      },
-      error: (err: any) => console.error('Erro ao buscar pedidos', err)
-    });
+    this.buscarPedidos();
   }
 
-  handleComprarNovamente(items: any[]) {
-    const produtos = items.map(item => ({
-      productId: item.product.id,
-      quantity: item.quantity
-    }));
+  buscarPedidos(page: number = 0): void {
+    const params: any = {
+      page,
+      size: this.tamanhoPagina
+    };
+    if (this.statusSelecionado) {
+      params.status = this.statusSelecionado;
+    }
 
-    from(produtos).pipe(
-      concatMap(produto => this.cartService.addProduct(produto.productId, produto.quantity))
-    ).subscribe({
-      next: () => {},
-      complete: () => this.cartSidebarService.openCart()
-    });
-  }
-
-  buscarPedidos(): void {
-    this.http.get<any>('/api/order?page=0&size=50').subscribe({
+    this.http.get<any>('/api/order', { params }).subscribe({
       next: (res) => {
         const pedidosBrutos = res.content || [];
 
@@ -63,9 +56,9 @@ export class OrdersComponent implements OnInit {
           status: order.status?.name || ''
         }));
 
-        this.pedidos = this.statusSelecionado
-          ? pedidosAdaptados.filter((p: Order) => p.status === this.statusSelecionado)
-          : pedidosAdaptados;
+        this.pedidos = pedidosAdaptados;
+        this.paginaAtual = res.number;
+        this.totalPaginas = res.totalPages;
       },
       error: (err) => console.error('Erro ao buscar pedidos', err)
     });
@@ -73,6 +66,26 @@ export class OrdersComponent implements OnInit {
 
   filtrarPorStatus(status: string | null) {
     this.statusSelecionado = status;
-    this.buscarPedidos();
+    this.buscarPedidos(0);
+  }
+
+  irParaPagina(pagina: number) {
+    if (pagina >= 0 && pagina < this.totalPaginas) {
+      this.buscarPedidos(pagina);
+    }
+  }
+
+  handleComprarNovamente(items: any[]) {
+    const produtos = items.map(item => ({
+      productId: item.product.id,
+      quantity: item.quantity
+    }));
+
+    from(produtos).pipe(
+      concatMap(produto => this.cartService.addProduct(produto.productId, produto.quantity))
+    ).subscribe({
+      next: () => {},
+      complete: () => this.cartSidebarService.openCart()
+    });
   }
 }
