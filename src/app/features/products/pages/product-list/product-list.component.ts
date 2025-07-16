@@ -8,6 +8,7 @@ import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/br
 import { ProductCardComponent } from '../../../../shared/components/product-card/product-card.component';
 import { CartService } from '../../../../core/services/cart.service';
 import { CartSidebarService } from '../../../../core/services/cart-side-bar.service';
+import {ToastService} from '../../../../core/services/toast.service';
 
 @Component({
   selector: 'app-product-list',
@@ -32,7 +33,8 @@ export class ProductListComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private cartService: CartService,
-    private cartSidebarService: CartSidebarService
+    private cartSidebarService: CartSidebarService,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -110,8 +112,14 @@ export class ProductListComponent implements OnInit {
   }
 
   onAddToCart(productId: number) {
-    this.cartService.addProduct(productId).subscribe(() => {
-      this.cartSidebarService.openCart();
+    this.cartService.addProduct(productId).subscribe({
+      next: () => this.cartSidebarService.openCart(),
+      error: () =>
+          this.toast.show(
+            'Acesso negado',
+            'Você precisa estar logado para adicionar itens ao carrinho.',
+            'warning'
+          )
     });
   }
 

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Overlay } from '@angular/cdk/overlay';
+import { ToastComponent } from '../../shared/components/toast/toast.component';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
@@ -14,7 +14,10 @@ export class ToastService {
     duration = 6000
   ) {
     const overlayRef = this.overlay.create({
-      positionStrategy: this.overlay.position().global().top('20px').right('20px'),
+      positionStrategy: this.overlay.position()
+        .global()
+        .top('20px')
+        .right('20px'),
       hasBackdrop: false,
       panelClass: 'toast-overlay',
     });
@@ -25,6 +28,7 @@ export class ToastService {
     componentRef.instance.title = title;
     componentRef.instance.message = message;
     componentRef.instance.type = type;
+    componentRef.instance.overlayRef = overlayRef;
 
     setTimeout(() => overlayRef.dispose(), duration);
   }
