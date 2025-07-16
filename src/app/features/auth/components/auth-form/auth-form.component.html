@@ -101,7 +101,7 @@
     <button
       type="submit"
       class="submit-btn"
-      [disabled]="form.invalid || (mode === 'edit' && !form.dirty)">
+      [disabled]="form.invalid || (mode === 'edit' && !form.dirty && !imageChanged)">
       {{ mode === 'login' ? 'Entrar' : mode === 'register' ? 'Criar conta' : 'Salvar' }}
     </button>
   </form>

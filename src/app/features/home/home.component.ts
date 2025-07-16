@@ -12,6 +12,7 @@ import {CartService} from '../../core/services/cart.service';
 import {CartSidebarService} from '../../core/services/cart-side-bar.service';
 import {NewsletterComponent} from './components/newsletter/newsletter.component';
 import {BrandShowcaseComponent} from './components/brand/brand.component';
+import {ToastService} from '../../core/services/toast.service';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +38,8 @@ export class HomeComponent implements OnInit {
     private productService: ProductService,
     private categoryService: CategoryService,
     private cartService: CartService,
-    private cartSidebarService: CartSidebarService
+    private cartSidebarService: CartSidebarService,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -69,8 +71,14 @@ export class HomeComponent implements OnInit {
   }
 
   onAddToCart(productId: number) {
-    this.cartService.addProduct(productId).subscribe(() => {
-      this.cartSidebarService.openCart();
+    this.cartService.addProduct(productId).subscribe({
+      next: () => this.cartSidebarService.openCart(),
+      error: () =>
+        this.toast.show(
+          'Acesso negado',
+          'Você precisa estar logado para adicionar itens ao carrinho.',
+          'warning'
+        )
     });
   }
 

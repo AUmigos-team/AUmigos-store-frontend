@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit, ChangeDetectorRef} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -42,6 +42,7 @@ export class AuthFormComponent implements OnInit {
   previewUrl: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
   serverError: string | null = null;
+  imageChanged = false;
 
   days = Array.from({ length: 31 }, (_, i) => i + 1);
   months = [
@@ -54,7 +55,10 @@ export class AuthFormComponent implements OnInit {
   ];
   years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     if (this.mode === 'login') {
@@ -138,6 +142,7 @@ export class AuthFormComponent implements OnInit {
       formData.append('profilePicture', this.selectedFile);
     }
 
+    this.imageChanged = false;
     this.submitForm.emit(formData);
   }
 
@@ -145,9 +150,11 @@ export class AuthFormComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       this.selectedFile = input.files[0];
+      this.imageChanged = true;
       const reader = new FileReader();
       reader.onload = () => {
         this.previewUrl = reader.result;
+        this.cd.detectChanges();
       };
       reader.readAsDataURL(this.selectedFile);
     }
