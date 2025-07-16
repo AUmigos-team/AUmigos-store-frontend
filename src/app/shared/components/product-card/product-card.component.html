@@ -7,6 +7,6 @@
     <img [src]="product.imageUrl" [alt]="product.name" />
     <div class="add-button" (click)="addToCart.emit(product.id)">+</div>
   </div>
-  <div class="name">{{ product.name }}</div>
+  <div class="name">{{ product.name | slice:0:55 }}<span *ngIf="product.name.length > 30">...</span></div>
   <div class="price">{{ product.price | currency:'BRL':'symbol':'1.2-2' }}</div>
 </div>
