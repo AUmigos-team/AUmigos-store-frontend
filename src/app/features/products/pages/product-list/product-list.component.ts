@@ -9,6 +9,7 @@ import { ProductCardComponent } from '../../../../shared/components/product-card
 import { CartService } from '../../../../core/services/cart.service';
 import { CartSidebarService } from '../../../../core/services/cart-side-bar.service';
 import {ToastService} from '../../../../core/services/toast.service';
+import {ProductService} from '../../../../core/services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -34,7 +35,8 @@ export class ProductListComponent implements OnInit {
     private http: HttpClient,
     private cartService: CartService,
     private cartSidebarService: CartSidebarService,
-    private toast: ToastService
+    private toast: ToastService,
+    private productService: ProductService,
   ) {}
 
   ngOnInit(): void {
@@ -64,15 +66,14 @@ export class ProductListComponent implements OnInit {
   }
 
   fetchProducts(categoria: string, subcategoria: string, search: string, page: number = 0) {
-    const url = '/api/products';
     const params: any = { page, size: 12 };
 
     if (categoria) params.category = categoria;
     if (subcategoria) params.subcategory = subcategoria;
     if (search) params.search = search;
 
-    this.http.get(url, { params }).subscribe({
-      next: (res: any) => {
+    this.productService.getProducts(params).subscribe({
+      next: (res) => {
         this.produtos = res.content;
         this.page = res.number;
         this.totalPages = res.totalPages;
