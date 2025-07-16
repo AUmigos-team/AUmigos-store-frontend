@@ -1,5 +1,6 @@
 import {Component, HostListener} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-banner-carousel',
@@ -11,11 +12,31 @@ import { CommonModule } from '@angular/common';
 export class BannerCarouselComponent {
 
   banners = [
-    {image: 'assets/banners/carrosel-1.png'},
-    {image: 'assets/banners/carrossel-2.png'},
-    {image: 'assets/banners/carrosel-3.png'},
-    {image: 'assets/banners/carrossel-4.png'},
-    {image: 'assets/banners/carrossel-5.png'},
+    {
+      image: 'assets/banners/carrosel-1.png',
+      categorySlug: 'cachorro',
+      subcategorySlug: 'acessorios'
+    },
+    {
+      image: 'assets/banners/carrossel-5.png',
+      categorySlug: 'gato',
+      subcategorySlug: 'brinquedos'
+    },
+    {
+      image: 'assets/banners/carrossel-4.png',
+      categorySlug: 'cachorro',
+      subcategorySlug: 'acessorios'
+    },
+    {
+      image: 'assets/banners/carrosel-3.png',
+      categorySlug: 'cachorro',
+      subcategorySlug: 'roupas'
+    },
+    {
+      image: 'assets/banners/carrossel-2.png',
+      categorySlug: 'gato',
+      subcategorySlug: 'petiscos'
+    },
   ];
 
   activeIndex = 0;
@@ -23,6 +44,8 @@ export class BannerCarouselComponent {
   nextIndex = 0;
 
   showSideBanners = true;
+
+  constructor(private router: Router) {}
 
   @HostListener('window:resize')
   onResize(): void {
@@ -51,5 +74,10 @@ export class BannerCarouselComponent {
 
   goToSlide(index: number): void {
     this.activeIndex = index;
+  }
+
+  goToSubcategory(): void {
+    const banner = this.banners[this.activeIndex];
+    this.router.navigate(['/produtos', banner.categorySlug, banner.subcategorySlug]);
   }
 }

@@ -3,7 +3,9 @@
 
   <div
     class="carousel-banner"
-    [ngStyle]="{ 'background-image': 'url(' + banners[activeIndex].image + ')' }">
+    [ngStyle]="{ 'background-image': 'url(' + banners[activeIndex].image + ')' }"
+    (click)="goToSubcategory()"
+    style="cursor: pointer">
   </div>
 
   <button class="nav-button right" (click)="nextSlide()">❯</button>
