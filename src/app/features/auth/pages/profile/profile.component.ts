@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AuthFormComponent } from '../../components/auth-form/auth-form.component';
 import { AuthService } from '../../../../core/services/auth-service.service';
 import { UserAuth } from '../../../../core/interfaces/user-auth';
+import { Location } from '@angular/common';
+import {ToastService} from '../../../../core/services/toast.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,12 +16,16 @@ import { UserAuth } from '../../../../core/interfaces/user-auth';
 export class ProfileComponent implements OnInit {
   user?: UserAuth;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private location: Location,
+    private toast: ToastService
+  ) {}
 
   ngOnInit() {
     this.authService.getCurrentUser().subscribe({
       next: (u) => (this.user = u),
-      error: () => alert('Erro ao carregar dados do usuário.'),
+      error: () => this.toast.show('Erro ao carregar dados do usuário.', 'error')
     });
   }
 
@@ -27,14 +33,12 @@ export class ProfileComponent implements OnInit {
     this.authService.updateUser(data).subscribe({
       next: (updatedUser) => {
         localStorage.setItem('user', JSON.stringify(updatedUser));
-
         this.user = updatedUser;
+        this.toast.show('Sucesso', 'Dados atualizados com sucesso!', 'success');
 
-        alert('Dados atualizados com sucesso!');
+        setTimeout(() => this.location.back(), 1200);
       },
-      error: () => alert('Erro ao atualizar dados.')
+      error: () => this.toast.show('Erro', 'Erro ao atualizar os dados.', 'error')
     });
   }
-
-
 }
