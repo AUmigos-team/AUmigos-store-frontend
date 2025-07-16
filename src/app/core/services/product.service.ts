@@ -12,6 +12,10 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   getRecommendedProducts(): Observable<PaginatedResponse<Product>> {
-    return this.http.get<PaginatedResponse<Product>>(`${this.baseUrl}?size=4&page=0`);
+    return this.getProducts({ size: 4, page: 0 });
+  }
+
+  getProducts(params: any): Observable<PaginatedResponse<Product>> {
+    return this.http.get<PaginatedResponse<Product>>(this.baseUrl, { params });
   }
 }
