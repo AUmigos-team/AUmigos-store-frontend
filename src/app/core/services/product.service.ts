@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 
 import { PaginatedResponse } from '../interfaces/paginated-response.interface';
 import {Product} from '../interfaces/product';
+import {environment} from '../../../enviroments/enviroment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-  private baseUrl = 'http://localhost:8080/api/products';
+  private baseUrl = `${environment.apiUrl}/products`;
 
   constructor(private http: HttpClient) {}
 

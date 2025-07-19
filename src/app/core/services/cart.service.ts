@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, tap} from 'rxjs';
 import {Cart} from '../interfaces/cart/cart';
+import {environment} from '../../../enviroments/enviroment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  private api = '/api/cart';
+  private api = `${environment.apiUrl}/cart`;
   private cartId: number | null = null;
 
   constructor(private http: HttpClient) {}
